@@ -1,5 +1,35 @@
-
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Import Cormorant Upright */
+@import url(https://fonts.googleapis.com/css2?family=Cormorant+Upright:wght@300;400;500;600;700&display=swap);
+
+/* Import Poppins */
+@import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: 'Cormorant Upright', serif;
+    font-weight: 700;
+}
+
+
