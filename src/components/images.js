@@ -1,0 +1,1 @@
+export { default as user} from '../img/user.jpg'
