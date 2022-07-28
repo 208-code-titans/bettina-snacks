@@ -1,9 +1,9 @@
+import { HomePage } from './pages/pages'
 
 function App() {
   return (
-    <div className="bg-slate-800 ">
-      Hello world!!!!
-
+    <div className="">
+      <HomePage />
     </div>
   );
 }
