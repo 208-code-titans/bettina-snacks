@@ -9,9 +9,14 @@ import { RiLockPasswordLine } from 'react-icons/ri'
 import { FcGoogle } from 'react-icons/fc'
 
 import { motion } from 'framer-motion'
+import { actionType } from '../context/reducer';
+import { useStateValue } from '../context/StateProvider'
+
 
 const SignInPage = () => {
   const provider = new GoogleAuthProvider() 
+
+	const [{ user }, dispatch] = useStateValue()
 
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
@@ -19,26 +24,38 @@ const SignInPage = () => {
 
 	const isInvalid = password === '' || email === ''
 
-
-  const handleSignIn = (e) => {
-    e.preventDefault()
-
-    signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
-      
-      console.log("Login Successful")
-    }).catch((error) => {
+  const signInEmail = async () => {
+    const {user: {refreshToken, providerData}} = await  signInWithEmailAndPassword(auth, email, password).catch((error) => {
       setEmail('')
       setPassword('')
       setError(error.message)
     })
+			// After user logs in, dispatch the information to the data layer (useStateValue and reducer)
+    dispatch({
+      type: actionType.SET_USER,
+			user: providerData[0], // The 0 index of the providerData contains user information
 
+    })
   }
 
   const signInGoogle = async () => {
-    console.log("Signed In with google")
-    const response = await signInWithPopup(auth, provider)
-    console.log(response)
+    const {user: {refreshToken, providerData}} = await signInWithPopup(auth, provider)
+			// After user logs in, dispatch the information to the data layer (useStateValue and reducer)
+    dispatch({
+      type: actionType.SET_USER,
+			user: providerData[0], // The 0 index of the providerData contains user information
+
+    })
   }
+
+  const handleSignIn = (e) => {
+    e.preventDefault()
+
+    signInEmail()
+
+  }
+
+
 
   return (
     <div className='w-screen h-screen flex items-center justify-center text-black bg-gradient-to-br from-red-300 to-red-50'>
