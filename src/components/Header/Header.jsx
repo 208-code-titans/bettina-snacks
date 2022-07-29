@@ -12,7 +12,7 @@ import { person } from '../images'
 import { motion } from 'framer-motion'
 
 import { AiOutlineShoppingCart } from 'react-icons/ai'
-import { MdLogout, MdLogin } from 'react-icons/md'
+import { MdLogin } from 'react-icons/md'
 import { BiUserPlus } from 'react-icons/bi'
 
 const Header = () => {
