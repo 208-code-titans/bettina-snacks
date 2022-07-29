@@ -2,7 +2,7 @@ import {
 	HomePage,
 	AboutPage,
 	ContactPage,
-	DashboardPage,
+	// DashboardPage,
 	MenuPage,
 	SignInPage,
 	SignUpPage,
