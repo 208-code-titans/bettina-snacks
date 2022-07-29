@@ -1,1 +1,1 @@
-export { default as user} from '../img/user.jpg'
+export { default as person} from '../img/user.jpg'
