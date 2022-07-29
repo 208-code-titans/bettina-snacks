@@ -1,7 +1,6 @@
-import React, { useState, useContext } from 'react'
+import React, { useState} from 'react'
 import { Link } from 'react-router-dom'
-// import { FirebaseContext } from '../context/firebase'
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { signInWithPopup, createUserWithEmailAndPassword, GoogleAuthProvider, updateProfile } from "firebase/auth";
 import { auth } from '../firebase.config';
 import { SIGN_IN } from '../constants/routes'
 
@@ -13,8 +12,7 @@ import { FcGoogle } from 'react-icons/fc'
 import { motion } from 'framer-motion'
 
 const SignUpPage = () => {
-  // const auth = getAuth(app)
-  var user = null
+  const provider = new GoogleAuthProvider() 
 
 	const [firstName, setFirstName] = useState('')
 	const [email, setEmail] = useState('')
@@ -28,12 +26,11 @@ const SignUpPage = () => {
 		
 
     createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
-      const user = userCredential.user
-      user.updateProfile({
+      updateProfile(userCredential.user, {
         // set the user's display name to the first name
         displayName: firstName,
       })
-      console.log(user)
+      console.log(userCredential)
     }).catch((error) => {
       setFirstName('')
       setEmail('')
@@ -41,8 +38,14 @@ const SignUpPage = () => {
       setError(error.message)
     })
 
-    console.log(user)
-	}
+    // console.log(userCredential)
+  }
+  
+  const signInGoogle = async () => {
+    // console.log("Signed In with google")
+    const response = await signInWithPopup(auth, provider)
+    console.log(response)
+  }
 
 	return (
 		<div className='w-screen h-screen flex items-center justify-center text-black bg-gradient-to-br from-red-300 to-red-50'>
@@ -118,7 +121,8 @@ const SignUpPage = () => {
 					<p className='text-sm text-gray-600'>or continue with</p>
 					<motion.div
 						whileTap={{ scale: 0.8 }}
-						className='bg-white hover:shadow-xl p-2 rounded-full border-2 border-gray-100 cursor-pointer'
+            className='bg-white hover:shadow-xl p-2 rounded-full border-2 border-gray-100 cursor-pointer'
+            onClick={signInGoogle}
 					>
 						<FcGoogle className=' text-3xl ' />
 					</motion.div>
