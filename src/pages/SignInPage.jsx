@@ -1,5 +1,5 @@
 import React, { useState} from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { signInWithPopup, signInWithEmailAndPassword, GoogleAuthProvider } from "firebase/auth";
 import { auth } from '../firebase.config';
 import { SIGN_UP } from '../constants/routes'
@@ -17,7 +17,7 @@ const SignInPage = () => {
   const provider = new GoogleAuthProvider() 
 
 	const [{ user }, dispatch] = useStateValue()
-
+  const navigate = useNavigate();
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [error, setError] = useState('')
@@ -36,6 +36,10 @@ const SignInPage = () => {
 			user: providerData[0], // The 0 index of the providerData contains user information
 
     })
+    // Store login information in local storage
+			localStorage.setItem('user', JSON.stringify(providerData[0]))
+      // Navigate user to home page after log in
+      navigate("/");
   }
 
   const signInGoogle = async () => {
@@ -44,8 +48,12 @@ const SignInPage = () => {
     dispatch({
       type: actionType.SET_USER,
 			user: providerData[0], // The 0 index of the providerData contains user information
-
+      
     })
+    // Store login information in local storage
+			localStorage.setItem('user', JSON.stringify(providerData[0]))
+      // Navigate user to home page after log in
+      navigate("/");
   }
 
   const handleSignIn = (e) => {
