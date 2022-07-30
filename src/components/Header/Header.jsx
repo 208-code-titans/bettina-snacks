@@ -8,17 +8,14 @@ import {
 	MENU,
 	CONTACT,
 } from '../../constants/routes'
-import { person } from '../images'
+import { person, personLg } from '../images'
 import { motion } from 'framer-motion'
 import { fetchUser } from '../../utils/fetchLocalStorageData'
 import { actionType } from '../../context/reducer'
 import { useStateValue } from '../../context/StateProvider'
 
 import { AiOutlineShoppingCart } from 'react-icons/ai'
-import {
-	MdLogin,
-	MdLogout,
-} from 'react-icons/md'
+import { MdLogin, MdLogout } from 'react-icons/md'
 import { BiUserPlus, BiFoodMenu, BiUser, BiPhoneCall } from 'react-icons/bi'
 import { AiOutlineHome } from 'react-icons/ai'
 
@@ -33,7 +30,6 @@ const Header = () => {
 	}
 
 	const logout = () => {
-		// alert("You are logged out!")
 		// Hide the menu
 		setIsMenu(false)
 		// Clear login info stored in local storage
@@ -43,7 +39,7 @@ const Header = () => {
 			type: actionType.SET_USER,
 			user: null,
 		})
-		console.log(user)
+		// console.log(user)
 	}
 
 	return (
@@ -113,9 +109,10 @@ const Header = () => {
 				>
 					<div>
 						<motion.img
-							src={
-								user && user.photoURL !== null
-									? user.photoURL
+                            src={
+                                // if there is and user and the user photURL is not null, display the user's image else display the default one
+								user 
+									? user.photoURL || personLg
 									: person
 							}
 							alt='user'
@@ -125,7 +122,7 @@ const Header = () => {
 						/>
 						{isMenu &&
 							((user && user !== undefined) || user !== null ? (
-								// console.log("there is a user")
+								// If there is a user, show logout button in the menu else show sign in and sign up
 								<motion.div
 									initial={{ opacity: 0, scale: 0.6 }}
 									animate={{ opacity: 1, scale: 1 }}
@@ -227,43 +224,41 @@ const Header = () => {
 							>
 								<Link to={HOME}>
 									<li className='text-base  hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer px-4 py-2 hover:bg-gray-100 border-b gap-3 flex items-center'>
-										<AiOutlineHome className='text-xl text-red-500'/>
+										<AiOutlineHome className='text-xl text-red-500' />
 										Home
 									</li>
 								</Link>
 								<Link to={ABOUT}>
 									<li className='text-base  hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer px-4 py-2 hover:bg-gray-100 border-b gap-3 flex items-center'>
-										<BiUser className='text-xl text-red-500'/>
+										<BiUser className='text-xl text-red-500' />
 										About Us
 									</li>
 								</Link>
 								<Link to={MENU}>
 									<li className='text-base  hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer px-4 py-2 hover:bg-gray-100 border-b gap-3 flex items-center'>
-										<BiFoodMenu className='text-xl text-red-500'/>
+										<BiFoodMenu className='text-xl text-red-500' />
 										Menu
 									</li>
 								</Link>
 								<Link to={CONTACT}>
 									<li className='text-base  hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer px-4 py-2 hover:bg-gray-100 border-b gap-3 flex items-center'>
-										<BiPhoneCall className='text-xl text-red-500'/>
+										<BiPhoneCall className='text-xl text-red-500' />
 										Contact
 									</li>
 								</Link>
-
-								
                             </motion.ul>
-                            {
-                                user && user !== undefined || user !== null ? (
-                                    <p
-                                    className='cursor-pointer px-4  py-2 bg-red-400 m-2 rounded-lg shadow-lg text-white duration-100 transition-all ease-in-out flex items-center gap-3 text-base'
-                                    onClick={logout}
-                                >
-                                    <MdLogout />
-                                    Logout
-                                </p>
-                                ) : (
-                                    <div>
-                                    <Link
+                            {/* If user is logged in display logout else display sign in and sign up */}
+							{(user && user !== undefined) || user !== null ? (
+								<p
+									className='cursor-pointer px-4  py-2 bg-red-400 m-2 rounded-lg shadow-lg text-white duration-100 transition-all ease-in-out flex items-center gap-3 text-base'
+									onClick={logout}
+								>
+									<MdLogout />
+									Logout
+								</p>
+							) : (
+								<div>
+									<Link
 										to={SIGN_UP}
 										className='cursor-pointer px-4 py-2 hover:bg-gray-100 hover:border-b-2  hover:border-red-400  duration-100 transition-all ease-in-out flex items-center gap-3 text-base'
 									>
@@ -276,10 +271,9 @@ const Header = () => {
 									>
 										<MdLogin className='text-xl text-red-500' />
 										Log In
-                                            </Link>
-                                            </div>
-                                )
-                            }
+									</Link>
+								</div>
+							)}
 						</motion.div>
 					)}
 				</div>
