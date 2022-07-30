@@ -46,12 +46,12 @@ h6 {
 
 ::-webkit-scrollbar-thumb {
     width: 5px;
-    background-color: #FDAB84;
+    background-color: #F66A6A;
     border-radius: 1rem;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #f09063;
+    background-color: #F25252;
 }
 
 
