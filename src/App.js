@@ -17,13 +17,13 @@ import {
 	SIGN_IN,
 } from './constants/routes'
 import { AnimatePresence } from 'framer-motion'
-import {Header} from './components/components'
+import { Header } from './components/components'
 
 function App() {
 	return (
-    <AnimatePresence exitBeforeEnter>
-      <Header />
-      
+		<AnimatePresence exitBeforeEnter>
+			<Header />
+
 			<Routes>
 				<Route path={HOME} element={<HomePage />} />
 				<Route path={ABOUT} element={<AboutPage />} />

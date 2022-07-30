@@ -4,8 +4,8 @@ import React from 'react'
 
 const LandingSubHeading = ({ title, span, subtitle }) => {
 	return (
-		<div>
-			<h1 className='text-5xl'>
+		<div className='flex flex-col gap-8'>
+			<h1 className='text-7xl'>
                 {title}
                 {' '}
 				<span className='text-red-600'>{span}</span>
