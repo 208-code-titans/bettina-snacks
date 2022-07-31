@@ -228,6 +228,7 @@ const Header = () => {
 										Home
 									</li>
 								</Link>
+								{/*  */}
 								<Link to={ABOUT}>
 									<li className='text-base  hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer px-4 py-2 hover:bg-gray-100 border-b gap-3 flex items-center'>
 										<BiUser className='text-xl text-red-500' />
