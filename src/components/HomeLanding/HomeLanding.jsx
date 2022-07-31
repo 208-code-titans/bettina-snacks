@@ -5,8 +5,9 @@ import { Button, LandingSubHeading } from '../components'
 const HomeLanding = () => {
 	return (
 		<div className='text-black z-50 h-full flex items-center '>
+			{/* Desktop and Tablets */}
 			<div className='hidden md:flex w-full h-full items-center justify-between gap-4'>
-				<div className='w-[50%] relative mx-12 gap-4 flex flex-col'>
+				<div className='w-[50%] relative px-12 gap-4 flex flex-col'>
 					<LandingSubHeading
 						title='The Pastries With A'
 						span='Difference'
@@ -18,8 +19,9 @@ const HomeLanding = () => {
 					<img src={homeLanding} alt='' className='' />
 				</div>
 			</div>
-			<div className='flex md:hidden w-full h-full justify-between items-center flex-col gap-4 px-8 pt-12'>
-				<div className='w-full relative mx-12 gap-4 flex flex-col'>
+			{/* Mobile View */}
+			<div className='flex md:hidden w-full h-full justify-between items-center flex-col gap-4 px-8 pt-12 relative'>
+				<div className='w-full relative mx-12 gap-4 flex flex-col z-10'>
 					<LandingSubHeading
 						title='The Pastries With A'
 						span='Difference'
@@ -27,8 +29,8 @@ const HomeLanding = () => {
 					/>
 					<Button route='/menu' text='Order Now' />
                 </div>
-                <div className=' right-0 w-[300px]'>
-					<img src={homeLanding} alt='' className='rotate-90' />
+                <div className='absolute -bottom-32 w-[300px]'>
+					<img src={homeLanding} alt='' className='rotate-90 z-0' />
 				</div>
 			</div>
 		</div>
