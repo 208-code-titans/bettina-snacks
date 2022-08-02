@@ -251,7 +251,7 @@ const Header = () => {
                             {/* If user is logged in display logout else display sign in and sign up */}
 							{(user && user !== undefined) || user !== null ? (
 								<p
-									className='cursor-pointer px-4  py-2 bg-red-400 m-2 rounded-lg shadow-lg text-white duration-100 transition-all ease-in-out flex items-center gap-3 text-base'
+									className='cursor-pointer px-4 py-2 bg-red-400 m-2 rounded-lg shadow-lg text-white duration-100 transition-all ease-in-out flex items-center gap-3 text-base'
 									onClick={logout}
 								>
 									<MdLogout />
