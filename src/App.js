@@ -32,6 +32,8 @@ function App() {
 				<Route path={SIGN_IN} element={<SignInPage />} />
 				<Route path={SIGN_UP} element={<SignUpPage />} />
 			</Routes>
+
+			
 		</AnimatePresence>
 	)
 }
