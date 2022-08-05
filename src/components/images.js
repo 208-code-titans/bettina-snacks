@@ -7,3 +7,10 @@ export { default as homeLanding } from '../img/homeLanding.png'
 export { default as homeAbout } from '../img/homeAbout.png'
 export { default as homeTestimonials } from '../img/homeTestimonials.png'
 export { default as homeContact } from '../img/homeContact.png'
+
+// Products 
+export { default as sausageRoll } from '../img/sausageRoll.jpg'
+export { default as cornPie } from '../img/cornPie.png'
+export { default as quiche} from '../img/quiche.jpg'
+export { default as tunaTri} from '../img/tunaTri.jpg'
+

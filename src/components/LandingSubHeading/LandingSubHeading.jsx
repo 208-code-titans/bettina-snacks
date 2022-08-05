@@ -4,7 +4,7 @@ import React from 'react'
 
 const LandingSubHeading = ({ title, span, subtitle }) => {
 	return (
-		<div className='flex flex-col gap-8'>
+		<div className='flex flex-col gap-8 items-center'>
 			<h1 className='text-7xl'>
                 {title}
                 {' '}
