@@ -54,4 +54,13 @@ h6 {
     background-color: #F25252;
 }
 
-
+.img-container::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    background: red;
+    position: absolute;
+    top: -0.25rem;
+    right: -0.5rem;
+    border-radius: 50%;
+  }
