@@ -8,6 +8,10 @@ export { default as homeAbout } from '../img/homeAbout.png'
 export { default as homeTestimonials } from '../img/homeTestimonials.png'
 export { default as homeContact } from '../img/homeContact.png'
 
+
+// About Page
+export { default as aboutLanding } from '../img/aboutLanding.png'
+
 // Products 
 export { default as sausageRoll } from '../img/sausageRoll.jpg'
 export { default as cornPie } from '../img/cornPie.png'
