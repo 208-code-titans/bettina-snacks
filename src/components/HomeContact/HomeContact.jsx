@@ -13,8 +13,8 @@ const HomeContact = () => {
 				<div className='w-[50%]'>
 					<div className='w-full gap-4 flex flex-col py-8 px-12'>
 						<LandingSubHeading
-							title='CONTACT'
-							span='US'
+							title='Contact'
+							span='Us'
 							subtitle='Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque hic aperiam deserunt, sed consequuntur.'
 						/>
             <div>
