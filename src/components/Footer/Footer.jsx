@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import { BsWhatsapp } from 'react-icons/bs'
-import { AiFillInstagram } from 'react-icons/ai'
 import { FaFacebookF, FaInstagram } from 'react-icons/fa'
 
 const Footer = () => {
@@ -51,17 +51,23 @@ const Footer = () => {
 						<div className='flex flex-col gap-4 justify-center'>
 							<h1 className='text-5xl text-cormorant text-red-500'>
 								Bettina Snacks
-              </h1>
-              <div className='w-full h-[2px] block bg-gradient-to-r from-transparent via-red-500 to-transparent' ></div>
+							</h1>
+							<div className='w-full h-[2px] block bg-gradient-to-r from-transparent via-red-500 to-transparent'></div>
 							<p>
 								Lorem ipsum dolor sit amet, consectetur
 								adipiscing elit. Aenean non erat ac erat
 								ultrices vehicula
 							</p>
 							<div className='flex items-center justify-center gap-3'>
-								<BsWhatsapp className='cursor-pointer text-2xl hover:text-red-500 ' />
-								<FaInstagram className='cursor-pointer text-2xl hover:text-red-500 ' />
-								<FaFacebookF className='cursor-pointer text-2xl hover:text-red-500 ' />
+								<motion.a href='https://whatsapp.com' target='_blank' whileTap={{scale: 0.8}}>
+									<BsWhatsapp className='cursor-pointer text-2xl hover:text-red-500 ' />
+								</motion.a>
+								<motion.a href='https://instagram.com' target='_blank' whileTap={{scale: 0.8}}>
+									<FaInstagram className='cursor-pointer text-2xl hover:text-red-500 ' />
+								</motion.a>
+								<motion.a href='https://facebook.com' target='_blank' whileTap={{scale: 0.8}}>
+									<FaFacebookF className='cursor-pointer text-2xl hover:text-red-500 ' />
+								</motion.a>
 							</div>
 						</div>
 						<div className='flex flex-col gap-4'>
