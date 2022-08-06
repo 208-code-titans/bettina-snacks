@@ -11,3 +11,7 @@ export { default as HomeAbout } from './HomeAbout/HomeAbout'
 export { default as HomeExplore } from './HomeExplore/HomeExplore'
 export { default as HomeTestimonials } from './HomeTestimonials/HomeTestimonials'
 export { default as HomeContact } from './HomeContact/HomeContact'
+
+// About Page
+export { default as AboutLanding } from './AboutLanding/AboutLanding'
+
