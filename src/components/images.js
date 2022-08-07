@@ -12,6 +12,11 @@ export { default as homeContact } from '../img/homeContact.png'
 // About Page
 export { default as aboutLanding } from '../img/aboutLanding.png'
 
+// Menu Page
+// export { default as menuLanding } from '../img/cakeCh.png'
+export { default as menuLanding2 } from '../img/cakeChocolate.png'
+export { default as menuLanding } from '../img/menuLanding.jpg'
+
 // Products 
 export { default as sausageRoll } from '../img/sausageRoll.jpg'
 export { default as cornPie } from '../img/cornPie.png'

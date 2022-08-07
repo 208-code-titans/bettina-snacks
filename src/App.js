@@ -2,7 +2,7 @@ import {
 	HomePage,
 	AboutPage,
 	ContactPage,
-	// DashboardPage,
+	DashboardPage,
 	MenuPage,
 	SignInPage,
 	SignUpPage,
@@ -15,6 +15,7 @@ import {
 	CONTACT,
 	SIGN_UP,
 	SIGN_IN,
+	DASHBOARD,
 } from './constants/routes'
 import { AnimatePresence } from 'framer-motion'
 import { Header } from './components/components'
@@ -31,6 +32,7 @@ function App() {
 				<Route path={CONTACT} element={<ContactPage />} />
 				<Route path={SIGN_IN} element={<SignInPage />} />
 				<Route path={SIGN_UP} element={<SignUpPage />} />
+				<Route path={DASHBOARD} element={<DashboardPage />} />
 			</Routes>
 
 			
