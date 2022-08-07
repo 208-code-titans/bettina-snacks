@@ -7,6 +7,7 @@ import {
 	SIGN_UP,
 	MENU,
 	CONTACT,
+	DASHBOARD,
 } from '../../constants/routes'
 import { person, personLg } from '../images'
 import { motion } from 'framer-motion'
@@ -15,25 +16,28 @@ import { actionType } from '../../context/reducer'
 import { useStateValue } from '../../context/StateProvider'
 
 import { AiOutlineShoppingCart } from 'react-icons/ai'
-import { MdLogin, MdLogout } from 'react-icons/md'
+import { MdAdd, MdLogin, MdLogout, MdOutlineDashboardCustomize } from 'react-icons/md'
 import { BiUserPlus, BiFoodMenu, BiUser, BiPhoneCall } from 'react-icons/bi'
 import { AiOutlineHome } from 'react-icons/ai'
 
 const Header = () => {
 	const user = fetchUser()
+	const adminEmail = 'attorfafa@gmail.com' || 'snacksbettina@gmail.com'
 
 	const [isMenu, setIsMenu] = useState(false)
 	const [{ userr }, dispatch] = useStateValue()
 
-	const showMenu = (e) => {
+	const showMenu = () => {
 		setIsMenu((menu) => !menu)
 	}
 
 	const logout = () => {
 		// Hide the menu
 		setIsMenu(false)
+
 		// Clear login info stored in local storage
 		localStorage.clear()
+
 		// Set user object to null
 		dispatch({
 			type: actionType.SET_USER,
@@ -128,12 +132,23 @@ const Header = () => {
 									animate={{ opacity: 1, scale: 1 }}
 									exit={{ opacity: 0, scale: 0.6 }}
 									className='w-40 bg-white shadow-xl rounded-lg flex flex-col absolute top-14 right-28 text-black z-50'
-								>
+							>
+								{/* Render the dashboard only if the user is admin */}
+								{user &&
+										user.email ===
+											adminEmail && (
+											<Link to={DASHBOARD}>
+												<p className='border-b cursor-pointer hover:bg-gray-100 px-4 py-2 duration-100 transition-all ease-in-out flex items-center gap-3 text-base'>
+													<MdOutlineDashboardCustomize className='text-xl text-red-500' />
+													Dashboard
+												</p>
+											</Link>
+										)}
 									<p
 										className='cursor-pointer px-4 py-2 hover:bg-gray-100 duration-100 transition-all ease-in-out flex items-center gap-3 text-base'
 										onClick={logout}
 									>
-										<MdLogout />
+										<MdLogout className='text-xl text-red-500' />
 										Logout
 									</p>
 								</motion.div>
@@ -250,13 +265,28 @@ const Header = () => {
                             </motion.ul>
                             {/* If user is logged in display logout else display sign in and sign up */}
 							{(user && user !== undefined) || user !== null ? (
+								<div>
+									{/* Render the dashboard only if the user is admin */}
+									{user &&
+										user.email ===
+											adminEmail && (
+											<Link to={DASHBOARD}>
+												<p className='border-b cursor-pointer hover:bg-gray-100 px-4 py-2 duration-100 transition-all ease-in-out flex items-center gap-3 text-base'>
+													<MdOutlineDashboardCustomize className='text-xl text-red-500' />
+													Dashboard
+												</p>
+											</Link>
+										)}
+
 								<p
 									className='cursor-pointer px-4 py-2 bg-red-400 m-2 rounded-lg shadow-lg text-white duration-100 transition-all ease-in-out flex items-center gap-3 text-base'
 									onClick={logout}
 								>
 									<MdLogout />
 									Logout
-								</p>
+									</p>
+									
+								</div>
 							) : (
 								<div>
 									<Link
