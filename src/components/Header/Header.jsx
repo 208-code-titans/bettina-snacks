@@ -177,6 +177,7 @@ const Header = () => {
 								</motion.div>
 							))}
 					</div>
+					{/* If user is admin, don't show the cart */}
 					{user && user.email !== adminEmail && (
 						<motion.div
 							className='relative flex items-center justify-center'
