@@ -16,7 +16,12 @@ import { actionType } from '../../context/reducer'
 import { useStateValue } from '../../context/StateProvider'
 
 import { AiOutlineShoppingCart } from 'react-icons/ai'
-import { MdAdd, MdLogin, MdLogout, MdOutlineDashboardCustomize } from 'react-icons/md'
+import {
+	MdAdd,
+	MdLogin,
+	MdLogout,
+	MdOutlineDashboardCustomize,
+} from 'react-icons/md'
 import { BiUserPlus, BiFoodMenu, BiUser, BiPhoneCall } from 'react-icons/bi'
 import { AiOutlineHome } from 'react-icons/ai'
 
@@ -113,11 +118,9 @@ const Header = () => {
 				>
 					<div>
 						<motion.img
-                            src={
-                                // if there is and user and the user photURL is not null, display the user's image else display the default one
-								user 
-									? user.photoURL || personLg
-									: person
+							src={
+								// if there is and user and the user photURL is not null, display the user's image else display the default one
+								user ? user.photoURL || personLg : person
 							}
 							alt='user'
 							whileTap={{ scale: 0.6 }}
@@ -132,18 +135,16 @@ const Header = () => {
 									animate={{ opacity: 1, scale: 1 }}
 									exit={{ opacity: 0, scale: 0.6 }}
 									className='w-40 bg-white shadow-xl rounded-lg flex flex-col absolute top-14 right-28 text-black z-50'
-							>
-								{/* Render the dashboard only if the user is admin */}
-								{user &&
-										user.email ===
-											adminEmail && (
-											<Link to={DASHBOARD}>
-												<p className='border-b cursor-pointer hover:bg-gray-100 px-4 py-2 duration-100 transition-all ease-in-out flex items-center gap-3 text-base'>
-													<MdOutlineDashboardCustomize className='text-xl text-red-500' />
-													Dashboard
-												</p>
-											</Link>
-										)}
+								>
+									{/* Render the dashboard only if the user is admin */}
+									{user && user.email === adminEmail && (
+										<Link to={DASHBOARD}>
+											<p className='border-b cursor-pointer hover:bg-gray-100 px-4 py-2 duration-100 transition-all ease-in-out flex items-center gap-3 text-base'>
+												<MdOutlineDashboardCustomize className='text-xl text-red-500' />
+												Dashboard
+											</p>
+										</Link>
+									)}
 									<p
 										className='cursor-pointer px-4 py-2 hover:bg-gray-100 duration-100 transition-all ease-in-out flex items-center gap-3 text-base'
 										onClick={logout}
@@ -176,17 +177,19 @@ const Header = () => {
 								</motion.div>
 							))}
 					</div>
-					<motion.div
-						className='relative flex items-center justify-center'
-						whileTap={{ scale: 0.6 }}
-					>
-						<AiOutlineShoppingCart className='text-black text-3xl cursor-pointer' />
-						<div className='absolute -top-2 -right-2 w-5 h-5 rounded-full bg-red-600 flex items-center justify-center'>
-							<p className='text-xs text-white font-semibold'>
-								2
-							</p>
-						</div>
-					</motion.div>
+					{user && user.email !== adminEmail && (
+						<motion.div
+							className='relative flex items-center justify-center'
+							whileTap={{ scale: 0.6 }}
+						>
+							<AiOutlineShoppingCart className='text-black text-3xl cursor-pointer' />
+							<div className='absolute -top-2 -right-2 w-5 h-5 rounded-full bg-red-600 flex items-center justify-center'>
+								<p className='text-xs text-white font-semibold'>
+									2
+								</p>
+							</div>
+						</motion.div>
+					)}
 				</motion.div>
 			</div>
 			{/* For mobile screens */}
@@ -262,30 +265,27 @@ const Header = () => {
 										Contact
 									</li>
 								</Link>
-                            </motion.ul>
-                            {/* If user is logged in display logout else display sign in and sign up */}
+							</motion.ul>
+							{/* If user is logged in display logout else display sign in and sign up */}
 							{(user && user !== undefined) || user !== null ? (
 								<div>
 									{/* Render the dashboard only if the user is admin */}
-									{user &&
-										user.email ===
-											adminEmail && (
-											<Link to={DASHBOARD}>
-												<p className='border-b cursor-pointer hover:bg-gray-100 px-4 py-2 duration-100 transition-all ease-in-out flex items-center gap-3 text-base'>
-													<MdOutlineDashboardCustomize className='text-xl text-red-500' />
-													Dashboard
-												</p>
-											</Link>
-										)}
+									{user && user.email === adminEmail && (
+										<Link to={DASHBOARD}>
+											<p className='border-b cursor-pointer hover:bg-gray-100 px-4 py-2 duration-100 transition-all ease-in-out flex items-center gap-3 text-base'>
+												<MdOutlineDashboardCustomize className='text-xl text-red-500' />
+												Dashboard
+											</p>
+										</Link>
+									)}
 
-								<p
-									className='cursor-pointer px-4 py-2 bg-red-400 m-2 rounded-lg shadow-lg text-white duration-100 transition-all ease-in-out flex items-center gap-3 text-base'
-									onClick={logout}
-								>
-									<MdLogout />
-									Logout
+									<p
+										className='cursor-pointer px-4 py-2 bg-red-400 m-2 rounded-lg shadow-lg text-white duration-100 transition-all ease-in-out flex items-center gap-3 text-base'
+										onClick={logout}
+									>
+										<MdLogout />
+										Logout
 									</p>
-									
 								</div>
 							) : (
 								<div>
