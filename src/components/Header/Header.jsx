@@ -17,7 +17,6 @@ import { useStateValue } from '../../context/StateProvider'
 
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import {
-	MdAdd,
 	MdLogin,
 	MdLogout,
 	MdOutlineDashboardCustomize,
@@ -27,7 +26,7 @@ import { AiOutlineHome } from 'react-icons/ai'
 
 const Header = () => {
 	const user = fetchUser()
-	const adminEmail = 'attorfafa@gmail.com' || 'snacksbettina@gmail.com'
+	const adminEmail = 'snacksbettina@gmail.com'
 
 	const [isMenu, setIsMenu] = useState(false)
 	const [{ userr }, dispatch] = useStateValue()
@@ -177,8 +176,6 @@ const Header = () => {
 								</motion.div>
 							))}
 					</div>
-					{/* If user is admin, don't show the cart */}
-					{user && user.email !== adminEmail && (
 						<motion.div
 							className='relative flex items-center justify-center'
 							whileTap={{ scale: 0.6 }}
@@ -190,7 +187,7 @@ const Header = () => {
 								</p>
 							</div>
 						</motion.div>
-					)}
+					
 				</motion.div>
 			</div>
 			{/* For mobile screens */}

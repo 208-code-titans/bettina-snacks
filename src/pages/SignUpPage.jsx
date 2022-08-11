@@ -64,7 +64,7 @@ const SignUpPage = () => {
 					className='w-full flex flex-col gap-4'
 				>
 					{error && (
-						<div className='text-sm text-yellow-600'>{error}</div>
+						<div className='text-sm text-yellow-600 w-full'>{error}</div>
 					)}
 					<div className='flex items-center'>
 						<BiUser className='absolute z-10 ml-4 text-gray-500 text-lg' />
@@ -90,7 +90,7 @@ const SignUpPage = () => {
 						<RiLockPasswordLine className='absolute z-10 ml-4 text-gray-500 text-lg' />
 						<input
 							placeholder='Password'
-							className='border-2 w-full  px-10 py-2 rounded-full relative outline-none'
+							className='border-2 w-full  px-10 py-2 rounded-full relative outline-none focus:ring-0 focus:border-black'
 							value={password}
 							type='password'
 							autoComplete='off'
