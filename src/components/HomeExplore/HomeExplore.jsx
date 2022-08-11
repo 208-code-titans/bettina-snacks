@@ -18,10 +18,10 @@ const HomeExplore = () => {
 							key={item.id}
 							className='h-[320px] object-cover bg-contain bg-no-repeat rounded-3xl relative shadow-2xl'
 							style={{ backgroundImage: `url(${item.img})` }}
-            >
-              <div className='bg-white inline-block absolute top-4 px-2 shadow-xl rounded-full right-3 font-bold text-red-500'>
-                {item.price}
-              </div>
+						>
+							<div className='bg-white inline-block absolute top-4 px-2 shadow-xl rounded-full right-3 font-bold text-red-500'>
+								{item.price}
+							</div>
 							<div className='bg-white w-full absolute bottom-0 rounded-3xl py-8 px-4 drop-shadow-sm flex flex-col gap-2'>
 								<div className='flex items-center w-full justify-between text-[.7rem] font-medium'>
 									<p className='text-gray-700 text-lg font-bold'>
@@ -29,7 +29,6 @@ const HomeExplore = () => {
 									</p>
 									<p className='bg-red-400 px-2 rounded-lg capitalize text-white'>
 										{item.category}
-										
 									</p>
 								</div>
 
