@@ -1,8 +1,11 @@
 import React from 'react'
+import { DashboardAdd } from '../components/components'
 
 const DashboardPage = () => {
   return (
-    <div>DashboardPage</div>
+    <div className='pt-[67px] md:pt[67px] w-screen h-screen'>
+      <DashboardAdd />
+    </div>
   )
 }
 
