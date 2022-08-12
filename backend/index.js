@@ -1,6 +1,8 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import mongoose from 'mongoose'
+import productRoute from './routes/products.js'
+import orderRoute from './routes/orders.js'
 
 const app = express()
 dotenv.config()
@@ -22,9 +24,18 @@ mongoose.connection.on('disconnected', () => {
 })
 
 // Listen to connection status
-mongoose.connection.on('connected', () => {
-	console.log('MongoDB connected')
-})
+// mongoose.connection.on('connected', () => {
+// 	console.log('MongoDB connected')
+// })
+
+
+// MIDDLEWARES
+
+app.use(express.json())
+
+app.use("/api/products", productRoute)
+app.use("/api/orders", orderRoute)
+
 
 // Run app on free port
 app.listen(8800, () => {
