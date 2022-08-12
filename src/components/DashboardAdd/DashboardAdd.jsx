@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { dashboardAdd, strawberryCake } from '../images'
 import { AiOutlineCloudUpload, AiFillTag } from 'react-icons/ai'
 import {
@@ -8,6 +8,11 @@ import {
 } from 'react-icons/md'
 
 const DashboardAdd = () => {
+    const [name, setName] = useState("")
+    const [price, setPrice] = useState("")
+    const [tag, setTag] = useState("")
+    const [category, setCategory] = useState("")
+    const [productImage, setProductImage] = useState("")
 
     // TODO: Add validation to form
 
@@ -27,7 +32,9 @@ const DashboardAdd = () => {
 									<input
 										type='text'
 										className='bg-transparent border-0 border-b-2 border-red-200 focus:ring-0 focus:border-red-500 relative ml-3 '
-										placeholder='Product Name'
+                                        placeholder='Product Name'
+                                        value={name}
+                                        onChange={(e) => setName(e.target.value)}
 									/>
 								</div>
 								<div className='flex items-center '>
@@ -35,7 +42,9 @@ const DashboardAdd = () => {
 									<input
 										type='text'
 										className='bg-transparent border-0 border-b-2 border-red-200 focus:ring-0 focus:border-red-500 relative ml-3'
-										placeholder='Product Price'
+                                        placeholder='Product Price'
+                                        value={price}
+                                        onChange={(e) => setPrice(e.target.value)}
 									/>
 								</div>
 							</div>
@@ -46,7 +55,9 @@ const DashboardAdd = () => {
 									<input
 										type='text'
 										className='bg-transparent border-0 border-b-2 border-red-200 focus:ring-0 focus:border-red-500 relative ml-3'
-										placeholder='Product Tag'
+                                        placeholder='Product Tag'
+                                        value={tag}
+                                        onChange={(e) => setTag(e.target.value)}
 									/>
 								</div>
 								<div className='flex items-center '>
@@ -55,7 +66,9 @@ const DashboardAdd = () => {
 									<input
 										type='text'
 										className='bg-transparent border-0 border-b-2 border-red-200 focus:ring-0 focus:border-red-500 relative ml-3'
-										placeholder='Product Category'
+                                        placeholder='Product Category'
+                                        value={category}
+                                        onChange={(e) => setCategory(e.target.value)}
 									/>
 								</div>
 							</div>
