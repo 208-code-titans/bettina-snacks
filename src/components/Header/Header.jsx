@@ -137,7 +137,7 @@ const Header = () => {
 								>
 									{/* Render the dashboard only if the user is admin */}
 									{user && user.email === adminEmail && (
-										<Link to={DASHBOARD}>
+										<Link to={DASHBOARD} onClick={() => setIsMenu(false)}>
 											<p className='border-b cursor-pointer hover:bg-gray-100 px-4 py-2 duration-100 transition-all ease-in-out flex items-center gap-3 text-base'>
 												<MdOutlineDashboardCustomize className='text-xl text-red-500' />
 												Dashboard
@@ -146,7 +146,7 @@ const Header = () => {
 									)}
 									<p
 										className='cursor-pointer px-4 py-2 hover:bg-gray-100 duration-100 transition-all ease-in-out flex items-center gap-3 text-base'
-										onClick={logout}
+									onClick={logout}
 									>
 										<MdLogout className='text-xl text-red-500' />
 										Logout
@@ -162,6 +162,7 @@ const Header = () => {
 									<Link
 										to={SIGN_UP}
 										className='cursor-pointer px-4 py-2 hover:bg-gray-100 hover:border-b-2  hover:border-red-400  duration-100 transition-all ease-in-out flex items-center gap-3 text-base'
+										onClick={() => setIsMenu(false)}
 									>
 										<BiUserPlus className='text-xl text-red-500' />
 										Sign Up
@@ -169,6 +170,7 @@ const Header = () => {
 									<Link
 										to={SIGN_IN}
 										className='cursor-pointer px-4 py-2 hover:bg-gray-100 hover:border-b-2  hover:border-red-400 hover:rounded-b-lg duration-100 transition-all ease-in-out flex items-center gap-3 text-base'
+										onClick={() => setIsMenu(false)}
 									>
 										<MdLogin className='text-xl text-red-500' />
 										Log In
@@ -238,26 +240,26 @@ const Header = () => {
 								exit={{ opacity: 0, x: 200 }}
 								className='flex flex-col'
 							>
-								<Link to={HOME}>
+								<Link to={HOME} onClick={() => setIsMenu(false)}>
 									<li className='text-base  hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer px-4 py-2 hover:bg-gray-100 border-b gap-3 flex items-center'>
 										<AiOutlineHome className='text-xl text-red-500' />
 										Home
 									</li>
 								</Link>
 								{/*  */}
-								<Link to={ABOUT}>
+								<Link to={ABOUT} onClick={() => setIsMenu(false)}>
 									<li className='text-base  hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer px-4 py-2 hover:bg-gray-100 border-b gap-3 flex items-center'>
 										<BiUser className='text-xl text-red-500' />
 										About Us
 									</li>
 								</Link>
-								<Link to={MENU}>
+								<Link to={MENU} onClick={() => setIsMenu(false)}>
 									<li className='text-base  hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer px-4 py-2 hover:bg-gray-100 border-b gap-3 flex items-center'>
 										<BiFoodMenu className='text-xl text-red-500' />
 										Menu
 									</li>
 								</Link>
-								<Link to={CONTACT}>
+								<Link to={CONTACT} onClick={() => setIsMenu(false)}>
 									<li className='text-base  hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer px-4 py-2 hover:bg-gray-100 border-b gap-3 flex items-center'>
 										<BiPhoneCall className='text-xl text-red-500' />
 										Contact
@@ -269,7 +271,7 @@ const Header = () => {
 								<div>
 									{/* Render the dashboard only if the user is admin */}
 									{user && user.email === adminEmail && (
-										<Link to={DASHBOARD}>
+										<Link to={DASHBOARD} onClick={() => setIsMenu(false)}>
 											<p className='border-b cursor-pointer hover:bg-gray-100 px-4 py-2 duration-100 transition-all ease-in-out flex items-center gap-3 text-base'>
 												<MdOutlineDashboardCustomize className='text-xl text-red-500' />
 												Dashboard
@@ -289,14 +291,16 @@ const Header = () => {
 								<div>
 									<Link
 										to={SIGN_UP}
-										className='cursor-pointer px-4 py-2 hover:bg-gray-100 hover:border-b-2  hover:border-red-400  duration-100 transition-all ease-in-out flex items-center gap-3 text-base'
+											className='cursor-pointer px-4 py-2 hover:bg-gray-100 hover:border-b-2  hover:border-red-400  duration-100 transition-all ease-in-out flex items-center gap-3 text-base'
+											onClick={() => setIsMenu(false)}
 									>
 										<BiUserPlus className='text-xl text-red-500' />
 										Sign Up
 									</Link>
 									<Link
 										to={SIGN_IN}
-										className='cursor-pointer px-4 py-2 hover:bg-gray-100 hover:border-b-2  hover:border-red-400 hover:rounded-b-lg duration-100 transition-all ease-in-out flex items-center gap-3 text-base'
+											className='cursor-pointer px-4 py-2 hover:bg-gray-100 hover:border-b-2  hover:border-red-400 hover:rounded-b-lg duration-100 transition-all ease-in-out flex items-center gap-3 text-base'
+											onClick={() => setIsMenu(false)}
 									>
 										<MdLogin className='text-xl text-red-500' />
 										Log In
