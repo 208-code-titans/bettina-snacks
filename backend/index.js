@@ -36,6 +36,18 @@ app.use(express.json())
 app.use("/api/products", productRoute)
 app.use("/api/orders", orderRoute)
 
+// Error Handling Middleware
+app.use((err, req, res, next) => {
+    const errorStatus = err.status || 500
+    const errorMessage = err.message || "Oops! Something went wrong..."
+    return res.status(errorStatus).json({
+        success: false,
+        status: errorStatus,
+        message: errorMessage,
+        stack: err.stack
+    })
+})
+
 
 // Run app on free port
 app.listen(8800, () => {
