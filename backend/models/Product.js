@@ -5,7 +5,6 @@ const ProductSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        unique: true
     },
     photo: {
         type: String,
@@ -16,6 +15,10 @@ const ProductSchema = new mongoose.Schema({
         required: true
     },
     category: {
+        type: String,
+        required: true
+    },
+    slug: {
         type: String,
         required: true
     },

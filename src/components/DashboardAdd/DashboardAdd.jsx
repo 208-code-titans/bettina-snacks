@@ -23,6 +23,7 @@ const DashboardAdd = () => {
 	const [price, setPrice] = useState('')
 	const [tag, setTag] = useState('')
 	const [category, setCategory] = useState('')
+	const [slug, setSlug] = useState('')
 	const [productImage, setProductImage] = useState(null)
 	const [fields, setFields] = useState(false) // to monitor errors
 	const [alertStatus, setAlertStatus] = useState('danger')
@@ -109,16 +110,21 @@ const DashboardAdd = () => {
 				}, 4000)
 				clearData()
 			} else {
+				// setSlug(name.toLowerCase().replaceAll(" ","_"))
 				const data = {
 					name: name,
 					photo: productImage,
 					tag: tag,
 					category: category,
+					slug: slug,
 					price: price,
 				}
+				console.log(data)
+				const jsonData = JSON.stringify(data)
+				console.log(jsonData)
 
 				axios
-					.post('localhost:8800/api/products', data)
+					.post('http://localhost:8800/api/products', data)
 					.then(() => {
 						setFields(true)
 						setMessage('Product added successfully!')
@@ -137,6 +143,21 @@ const DashboardAdd = () => {
 							setLoading(false)
 						}, 4000)
 					})
+
+				// fetch('http://localhost:8800/api/products', {
+				// 	method: 'POST', // or 'PUT'
+				// 	headers: {
+				// 	  'Content-Type': 'application/json',
+				// 	},
+				// 	body: JSON.stringify(data),
+				//   })
+				//   .then((response) => response.json())
+				//   .then((data) => {
+				// 	console.log('Success:', data);
+				//   })
+				//   .catch((error) => {
+				// 	console.error('Error:', error);
+				//   })
 			}
 		} catch (error) {
 			console.log(error)
@@ -188,9 +209,14 @@ const DashboardAdd = () => {
 										placeholder='Product Name'
 										required
 										value={name}
-										onChange={(e) =>
+										onChange={(e) => {
 											setName(e.target.value)
-										}
+											setSlug(
+												e.target.value
+													.toLowerCase()
+													.replaceAll(' ', '_')
+											)
+										}}
 									/>
 								</div>
 								<div className='flex items-center '>
