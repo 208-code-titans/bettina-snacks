@@ -14,7 +14,8 @@ const HomeAbout = () => {
 						<LandingSubHeading
 							title='About Bettina'
 							span='Snacks'
-							subtitle='Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque hic aperiam deserunt, sed consequuntur minima et, ex dicta corporis rem in eaque porro? Explicabo inventore repellendus sapiente asperiores delectus nihil. Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque hic aperiam deserunt, sed consequuntur minima et, ex dicta corporis rem in eaque porro? Explicabo inventore repellendus sapiente asperiores delectus nihil.'
+							subtitle='Bettina Snacks is an all Ghanaian Bakery which offers high quality snacks with the finest ingredients. Since the 1970s, Bettina snacks has delivered 
+							          the best of the best, which was owned by Bettina, who then passed it on the her daughter, the current manager. '
 						/>
 						<Button route='/about' text='Learn More' />
 					</div>
@@ -29,7 +30,8 @@ const HomeAbout = () => {
 						<LandingSubHeading
 							title='About Bettina'
 							span='Snacks'
-							subtitle='Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque hic aperiam deserunt, sed consequuntur minima et, ex dicta corporis rem in eaque porro? Explicabo inventore repellendus sapiente asperiores delectus nihil. Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque hic aperiam deserunt, sed consequuntur minima et, ex dicta corporis rem in eaque porro? Explicabo inventore repellendus sapiente asperiores delectus nihil.'
+							subtitle='Bettina Snacks is an all Ghanaian Bakery which offers high quality snacks with the finest ingredients. Since the 1970s, Bettina snacks has delivered 
+							          the best of the best, which was owned by Bettina, who then passed it on the her daughter, the current manager.'
 						/>
 						<Button route='/about' text='Read More' />
 					</div>

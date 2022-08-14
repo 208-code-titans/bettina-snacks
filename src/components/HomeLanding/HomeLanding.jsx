@@ -11,7 +11,8 @@ const HomeLanding = () => {
 					<LandingSubHeading
 						title='The Pastries With A'
 						span='Difference'
-						subtitle='Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque hic aperiam deserunt, sed consequuntur minima et, ex dicta corporis rem in eaque porro? Explicabo inventore repellendus sapiente asperiores delectus nihil.'
+						subtitle='Welcome to Bettina Snacks! Where every order is made from scratch with all natural and healthy ingredients.
+						          Browse through our menu and sign up to place your orders and satisfy those cravings.'
 					/>
 					<Button route='/menu' text='Order Now' />
 				</div>
@@ -25,7 +26,8 @@ const HomeLanding = () => {
 					<LandingSubHeading
 						title='The Pastries With A'
 						span='Difference'
-						subtitle='Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque hic aperiam deserunt, sed consequuntur minima et, ex dicta corporis rem in eaque porro? Explicabo inventore repellendus sapiente asperiores delectus nihil.'
+						subtitle='Welcome to Bettina Snacks! Where every order is made from scratch with all natural and healthy ingredients.
+						Browse through our menu and sign up to place your orders and satisfy those cravings.'
 					/>
 					<Button route='/menu' text='Order Now' />
                 </div>
