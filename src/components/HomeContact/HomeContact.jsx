@@ -15,7 +15,7 @@ const HomeContact = () => {
 						<LandingSubHeading
 							title='Contact'
 							span='Us'
-							subtitle='Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque hic aperiam deserunt, sed consequuntur.'
+							subtitle='Call us or send us an email for more information. Were always here to lend a helping hand.'
 						/>
             <div>
           <p>TELEPHONE: +233 *** *** ***</p>
@@ -34,7 +34,7 @@ const HomeContact = () => {
 						<LandingSubHeading
 							title='CONTACT'
 							span ='US'
-							subtitle='Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque hic aperiam deserunt, sed consequuntur.'
+							subtitle='Call us or send us an email for more information. Were always here to lend a helping hand.'
 						/>
           <div>
           <p>TELEPHONE: +233 *** *** ***</p>

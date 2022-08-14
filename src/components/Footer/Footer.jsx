@@ -54,9 +54,8 @@ const Footer = () => {
 							</h1>
 							<div className='w-full h-[2px] block bg-gradient-to-r from-transparent via-red-500 to-transparent'></div>
 							<p>
-								Lorem ipsum dolor sit amet, consectetur
-								adipiscing elit. Aenean non erat ac erat
-								ultrices vehicula
+								You can contact us on any of our socials. <br />
+								We're just an order away!
 							</p>
 							<div className='flex items-center justify-center gap-3'>
 								<motion.a href='https://whatsapp.com' target='_blank' whileTap={{scale: 0.8}}>
