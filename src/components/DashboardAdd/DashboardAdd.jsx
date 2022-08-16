@@ -17,6 +17,7 @@ import {
 	MdDelete,
 } from 'react-icons/md'
 import { Loader } from '../components'
+import { pendingOrders } from '../../fixtures/data'
 
 const DashboardAdd = () => {
 	const [name, setName] = useState('')
@@ -110,7 +111,6 @@ const DashboardAdd = () => {
 				}, 4000)
 				clearData()
 			} else {
-				// setSlug(name.toLowerCase().replaceAll(" ","_"))
 				const data = {
 					name: name,
 					photo: productImage,
@@ -119,45 +119,54 @@ const DashboardAdd = () => {
 					slug: slug,
 					price: price,
 				}
-				console.log(data)
-				const jsonData = JSON.stringify(data)
-				console.log(jsonData)
-
-				axios
-					.post('http://localhost:8800/api/products', data)
-					.then(() => {
-						setFields(true)
-						setMessage('Product added successfully!')
-						setAlertStatus('success')
-						setTimeout(() => {
-							setFields(false)
-						}, 4000)
-					})
-					.catch((error) => {
-						console.log(error)
-						setFields(true)
-						setMessage('Error accessing database. Try Again!')
-						setAlertStatus('danger')
-						setTimeout(() => {
-							setFields(false)
-							setLoading(false)
-						}, 4000)
-					})
-
-				// fetch('http://localhost:8800/api/products', {
-				// 	method: 'POST', // or 'PUT'
-				// 	headers: {
-				// 	  'Content-Type': 'application/json',
-				// 	},
-				// 	body: JSON.stringify(data),
-				//   })
-				//   .then((response) => response.json())
-				//   .then((data) => {
-				// 	console.log('Success:', data);
-				//   })
-				//   .catch((error) => {
-				// 	console.error('Error:', error);
-				//   })
+				// console.table(data)
+				// const jsonData = JSON.stringify(data)
+				// console.log(jsonData)
+				// try {
+				// 	const result = await axios.create({
+				// 		url: process.env.REACT_APP_API_BASE_URL + '/products',
+				// 		method: 'post',
+				// 		data: data,
+				// 	})
+				// 	console.log(result)
+					// setFields(true)
+					// setMessage('Product added successfully!')
+					// setAlertStatus('success')
+					// setTimeout(() => {
+					// 	setFields(false)
+					// }, 4000)
+				// } catch (error) {
+				// 	console.log(error)
+				// 	setFields(true)
+				// 	setMessage('Error accessing database. Try Again!')
+				// 	setAlertStatus('danger')
+				// 	setTimeout(() => {
+				// 		setFields(false)
+				// 		setLoading(false)
+				// 	}, 4000)
+				// }
+				fetch(process.env.REACT_APP_API_BASE_URL + '/products', {
+					method: 'POST', // or 'PUT'
+					headers: {
+					  'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(data),
+				  })
+				  .then((response) => response.json())
+				  .then((data) => {
+					  console.log('Success:', data);
+					  setFields(true)
+					  setMessage('Product added successfully!')
+					  setAlertStatus('success')
+					  setLoading(false)
+					  setTimeout(() => {
+						  setFields(false)
+					  }, 4000)
+					  clearData()
+				  })
+				  .catch((error) => {
+					console.error('Error:', error);
+				  })
 			}
 		} catch (error) {
 			console.log(error)
@@ -175,9 +184,9 @@ const DashboardAdd = () => {
 	// Add validation to form
 
 	return (
-		<div className='flex flex-col 2xl:flex-row w-full gap-4 items-center md:px-10 md:py-8'>
+		<div className='flex flex-col 2xl:flex-row w-full 2xl:w-[70%] max-h-screen xl:max-h-[70vh] md:px-10 md:py-8'>
 			<div
-				className='w-full 2xl:w-[60%] m-h-[25rem] bg-cover bg-top bg-no-repeat flex md:rounded-3xl overflow-hidden'
+				className='w-full  m-h-[25rem] bg-cover bg-top bg-no-repeat flex md:rounded-3xl overflow-hidden'
 				style={{ backgroundImage: `url(${strawberryCake})` }}
 			>
 				<div className='w-full h-full bg-[rgba(0,0,0,0.85)]  text-white px-10 py-8 flex flex-col justify-center  '>
@@ -191,8 +200,8 @@ const DashboardAdd = () => {
 							exit={{ opacity: 0 }}
 							className={`w-full p-2 rounded-lg text-center text-lg font-semibold mb-2 ${
 								alertStatus === 'danger'
-									? 'bg-red-300 text-red-800'
-									: 'bg-emerald-300 text-emerald-800'
+									? 'bg-red-200 text-red-800'
+									: 'bg-emerald-200 text-emerald-800'
 							}`}
 						>
 							{message}
@@ -251,7 +260,7 @@ const DashboardAdd = () => {
 									<input
 										type='text'
 										className='bg-transparent border-0 border-b-2 border-red-200 focus:ring-0 focus:border-red-500 relative ml-3'
-										placeholder='Product Category'
+										placeholder='Category e.g Regular '
 										required
 										value={category}
 										onChange={(e) =>
@@ -316,7 +325,7 @@ const DashboardAdd = () => {
 					</button>
 				</div>
 			</div>
-			<div className='w-[40%] flex'></div>
+			
 		</div>
 	)
 }
