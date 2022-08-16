@@ -22,4 +22,5 @@ export { default as MenuLanding } from './MenuLanding/MenuLanding'
 
 // Dashboard Page
 export { default as DashboardAdd} from './DashboardAdd/DashboardAdd'
+export { default as PendingOrders} from './PendingOrders/PendingOrders'
 
