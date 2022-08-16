@@ -9,7 +9,7 @@ export const createProduct = async (req, res, next) => {
 		res.status(200).json(savedProduct)
 	} catch (error) {
 		// If error, show error
-		next(err)
+		next(error)
 	}
 }
 

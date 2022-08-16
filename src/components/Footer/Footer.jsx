@@ -6,11 +6,11 @@ import { FaFacebookF, FaInstagram } from 'react-icons/fa'
 
 const Footer = () => {
 	return (
-		<footer className='bg-gray-50 text-black border-t-2 border-red-50 shadow-sm'>
-			<div className='md:flex md:justify-between md:items-center sm:px-12 px-4 bg-[#ffffff19] py-7'>
-				<div className=' '>
-					<div className='grid grid-cols-1 lg:grid-cols-3 gap-10 text-center sm:px-8 px-5 py-16'>
-						<div className='flex flex-col gap-4'>
+		<footer className='bg-gray-50 text-black border-t-2 border-red-50 shadow-sm w-screen'>
+			<div className='md:flex flex-col md:justify-between md:items-center sm:px-12 px-4 bg-[#ffffff19] py-7'>
+				<div className=''>
+					<div className='flex w-screen flex-col  xl:justify-between items-center justify-center gap-10 text-center  px-5 lg:px-[58px] py-16 mx-auto'>
+						<div className='flex flex-col gap-4 max-w-[400px]'>
 							<h1 className='text-3xl text-red-400 tracking-wide'>
 								Company
 							</h1>
@@ -48,7 +48,7 @@ const Footer = () => {
 								</p>
 							</div>
 						</div>
-						<div className='flex flex-col gap-4 justify-center'>
+						<div className='flex flex-col gap-4 justify-center max-w-[400px]'>
 							<h1 className='text-5xl text-cormorant text-red-500'>
 								Bettina Snacks
 							</h1>
@@ -69,7 +69,7 @@ const Footer = () => {
 								</motion.a>
 							</div>
 						</div>
-						<div className='flex flex-col gap-4'>
+						<div className='flex flex-col gap-4 max-w-[400px]'>
 							<h1 className='font-semibold text-red-400 text-3xl tracking-wide'>
 								Working Hours
 							</h1>

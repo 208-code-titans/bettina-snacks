@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 import mongoose from 'mongoose'
 import productRoute from './routes/products.js'
 import orderRoute from './routes/orders.js'
-
+import cors from "cors"
 const app = express()
 dotenv.config()
 
@@ -32,6 +32,11 @@ mongoose.connection.on('disconnected', () => {
 // MIDDLEWARES
 
 app.use(express.json())
+app.use(cors({origin: true, credentials: true}));
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*")
+    next()
+  }) 
 
 app.use("/api/products", productRoute)
 app.use("/api/orders", orderRoute)
