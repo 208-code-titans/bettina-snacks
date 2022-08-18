@@ -36,7 +36,7 @@ const useFetch = (url) => {
         setLoading(false)
     }
 
-    return { data, loading, error, reFetch}
+    return { productData, loading, error, reFetch}
 }
 
 
