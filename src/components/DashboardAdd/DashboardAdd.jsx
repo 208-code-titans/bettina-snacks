@@ -260,7 +260,7 @@ const DashboardAdd = () => {
 									<input
 										type='text'
 										className='bg-transparent border-0 border-b-2 border-red-200 focus:ring-0 focus:border-red-500 relative ml-3'
-										placeholder='Category e.g Regular '
+										placeholder='Category'
 										required
 										value={category}
 										onChange={(e) =>
