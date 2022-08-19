@@ -18,6 +18,7 @@ export { default as AboutLanding } from './AboutLanding/AboutLanding'
 
 // Menu Page
 export { default as MenuLanding } from './MenuLanding/MenuLanding'
+export { default as MenuContainer } from './MenuContainer/MenuContainer'
 
 
 // Dashboard Page
