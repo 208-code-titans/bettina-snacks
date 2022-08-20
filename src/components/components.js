@@ -15,6 +15,9 @@ export { default as HomeContact } from './HomeContact/HomeContact'
 
 // About Page
 export { default as AboutLanding } from './AboutLanding/AboutLanding'
+export {default as AboutHistory} from './AboutHistory/AboutHistory'
+export {default as AboutAbout } from './AboutAbout/AboutAbout'
+export {default as AboutEvent } from './AboutEvent/AboutEvent'
 
 // Menu Page
 export { default as MenuLanding } from './MenuLanding/MenuLanding'
