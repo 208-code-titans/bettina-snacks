@@ -28,3 +28,8 @@ export { default as sausageRoll } from '../img/sausageRoll.jpg'
 export { default as cornPie } from '../img/cornPie.png'
 export { default as quiche } from '../img/quiche.jpg'
 export { default as tunaTri } from '../img/tunaTri.jpg'
+
+// Contact page
+export { default as contactLanding } from '../img/contactLanding.avif'
+
+
