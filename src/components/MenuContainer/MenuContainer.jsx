@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { LandingSubHeading, Product, Loader } from '../components'
+import { LandingSubHeading, Product, Loader, FilterButtons } from '../components'
 import { onSnapshot, collection, query, orderBy } from '@firebase/firestore'
 import { firestore } from '../../firebase.config'
 
@@ -19,6 +19,9 @@ const MenuContainer = () => {
 	}, [firestore])
 	// console.log(allProducts)
 
+	const menuItems = [...new Set(allProducts.map((itemFilter) => itemFilter.data().category))]
+	console.log(menuItems)
+
 	return (
 		<div className='w-full py-12 px-20'>
 			<div>
@@ -29,6 +32,9 @@ const MenuContainer = () => {
 				/>
 			</div>
 			<div>
+				<FilterButtons />
+			</div>
+			<div>
 				{loading ? (
 					<>
 						<div className='flex w-full items-center justify-center'>
@@ -37,7 +43,7 @@ const MenuContainer = () => {
 					</>
 				) : (
 					<>
-						<div className=' py-8 grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-10 w-full'>
+						<div className=' py-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-10 w-full'>
 							{allProducts &&
 								allProducts.map((item) => (
 									<Product
