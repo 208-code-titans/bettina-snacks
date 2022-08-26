@@ -3,6 +3,7 @@ export { default as Footer } from './Footer/Footer'
 export { default as Button} from './Button/Button'
 export { default as Loader} from './Loader/Loader'
 export { default as Product} from './Product/Product'
+export { default as FilterButtons} from './FilterButtons/FilterButtons'
 export { default as LandingSubHeading } from './LandingSubHeading/LandingSubHeading'
 
 

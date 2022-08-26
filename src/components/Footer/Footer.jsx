@@ -9,7 +9,7 @@ const Footer = () => {
 		<footer className='bg-gray-50 text-black border-t-2 border-red-50 shadow-sm w-screen overflow-x-hidden'>
 			<div className='flex flex-col md:justify-between md:items-center  bg-[#ffffff19] py-7'>
 				<div className=''>
-					<div className='grid grid-cols-3 gap-10 text-center mx-auto'>
+					<div className='grid grid-cols-1 lg:grid-cols-3 gap-10 text-center mx-auto'>
 						<div className='flex flex-col gap-4'>
 							<h1 className='text-3xl text-red-400 tracking-wide'>
 								Company
