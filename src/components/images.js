@@ -10,6 +10,9 @@ export { default as homeContact } from '../img/homeContact.png'
 
 // About Page
 export { default as aboutLanding } from '../img/aboutLanding.png'
+export { default as aboutdeco1 } from '../img/aboutdeco1.png'
+export { default as aboutdeco2 } from '../img/aboutdeco2.png'
+export { default as aboutdeco3} from '../img/aboutdeco3.png'
 
 // Menu Page
 // export { default as menuLanding } from '../img/cakeCh.png'
@@ -25,3 +28,8 @@ export { default as sausageRoll } from '../img/sausageRoll.jpg'
 export { default as cornPie } from '../img/cornPie.png'
 export { default as quiche } from '../img/quiche.jpg'
 export { default as tunaTri } from '../img/tunaTri.jpg'
+
+// Contact page
+export { default as contactLanding } from '../img/contactLanding.avif'
+
+
