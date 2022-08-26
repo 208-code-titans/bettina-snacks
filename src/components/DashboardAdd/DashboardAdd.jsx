@@ -17,7 +17,11 @@ import {
 	MdDelete,
 } from 'react-icons/md'
 import { Loader } from '../components'
-import { pendingOrders } from '../../fixtures/data'
+import {
+	addDoc,
+	collection,
+} from '@firebase/firestore'
+import { firestore } from '../../firebase.config'
 
 const DashboardAdd = () => {
 	const [name, setName] = useState('')
@@ -97,7 +101,7 @@ const DashboardAdd = () => {
 		})
 	}
 
-	// Add Product to Database
+	// Add Product to MongoDB Database
 	const addProduct = () => {
 		setLoading(true)
 		try {
@@ -181,7 +185,53 @@ const DashboardAdd = () => {
 		}
 	}
 
-	// Add validation to form
+	// Add Product to Firebase
+	const pushProduct = async () => {
+		setLoading(true)
+		try {
+			if (!name || !price || !tag || !category || !productImage) {
+				setFields(true)
+				setMessage("Required fields can't be empty")
+				setAlertStatus('danger')
+				setTimeout(() => {
+					setFields(false)
+					setLoading(false)
+				}, 4000)
+				clearData()
+			} else {
+				
+				await addDoc(collection(firestore, 'products'), {
+					name: name,
+					photo: productImage,
+					tag: tag,
+					category: category,
+					slug: slug,
+					price: price,
+				})
+				setFields(true)
+				setMessage("Success")
+				setAlertStatus('success')
+				setTimeout(() => {
+					setFields(false)
+					setLoading(false)
+				}, 4000)
+				clearData()
+			}
+			
+		} catch (error) {
+			console.log(error)
+			setFields(true)
+			setMessage('Error while uploading. Try Again!')
+			setAlertStatus('danger')
+			setTimeout(() => {
+				setFields(false)
+				setLoading(false)
+			}, 4000)
+			clearData()
+		}
+	}
+
+	
 
 	return (
 		<div className='flex flex-col 2xl:flex-row w-full 2xl:w-[70%] max-h-screen xl:max-h-[70vh] md:px-10 md:py-8'>
@@ -318,7 +368,7 @@ const DashboardAdd = () => {
 					</div>
 					<button
 						className='bg-gradient-to-br from-red-400 to-red-500 hover:from-red-500 hover:to-red-500 transition-colors duration-700 ease-linear  inline-block w-max px-6 py-4 rounded-full mx-auto my-3'
-						onClick={addProduct}
+						onClick={pushProduct}
 					>
 						{' '}
 						Add Product

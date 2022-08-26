@@ -10,6 +10,18 @@ import { BiUser } from 'react-icons/bi'
 import { FcGoogle } from 'react-icons/fc'
 
 import { motion } from 'framer-motion'
+import {
+	addDoc,
+	setDoc,
+	deleteDoc,
+	doc,
+	collection,
+	serverTimestamp,
+	onSnapshot,
+	query,
+	orderBy,
+} from '@firebase/firestore'
+import {firestore} from '../firebase.config'
 
 const SignUpPage = () => {
   const provider = new GoogleAuthProvider() 
@@ -21,6 +33,8 @@ const SignUpPage = () => {
 
 	const isInvalid = firstName === '' || password === '' || email === ''
 
+	
+
 	const handleSignUp = (e) => {
 		e.preventDefault()
 		
@@ -30,7 +44,18 @@ const SignUpPage = () => {
         // set the user's display name to the first name
         displayName: firstName,
       })
-      console.log(userCredential)
+		// console.log(userCredential.user.uid)
+		// const uid = userCredential.user.uid
+
+		// const createUser = () => {
+		// 	setDoc(doc(firestore, 'users', userCredential, uid), {
+		// 		username: userCredential.user.displayName,
+		// 		email: userCredential.user.email,
+		// 		userId: userCredential.user.uid
+		// 	})
+		// }
+		// createUser()
+		
     }).catch((error) => {
       setFirstName('')
       setEmail('')
@@ -38,7 +63,7 @@ const SignUpPage = () => {
       setError(error.message)
     })
 
-    // console.log(userCredential)
+	
   }
   
   const signInGoogle = async () => {
@@ -64,7 +89,7 @@ const SignUpPage = () => {
 					className='w-full flex flex-col gap-4'
 				>
 					{error && (
-						<div className='text-sm text-yellow-600 w-full'>{error}</div>
+						<div className='text-sm text-yellow-600 w-full max-w-sm'>{error}</div>
 					)}
 					<div className='flex items-center'>
 						<BiUser className='absolute z-10 ml-4 text-gray-500 text-lg' />
