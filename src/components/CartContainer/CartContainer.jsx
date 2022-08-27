@@ -8,17 +8,22 @@ import { motion } from 'framer-motion'
 import { quiche } from '../images'
 
 const CartContainer = () => {
-    const [{ cartShow }, dispatch] = useStateValue()
-    
-    const showCart = () => {
+	const [{ cartShow }, dispatch] = useStateValue()
+
+	const showCart = () => {
 		dispatch({
 			type: actionType.SET_CART_SHOW,
-			cartShow: !cartShow
+			cartShow: !cartShow,
 		})
 	}
 
 	return (
-		<div className='fixed top-0 right-0 w-full md:w-375 h-screen bg-white drop-shadow-md flex flex-col z-[100] '>
+		<motion.div
+			initial={{ opacity: 0, x: 200 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{opacity: 0, x: 200}}
+			className='fixed top-0 right-0 w-full md:w-375 h-screen bg-white drop-shadow-md flex flex-col z-[100] '
+		>
 			<div className='w-full flex items-center justify-between p-4 cursor-pointer '>
 				<motion.div whileTap={{ scale: 0.8 }} onClick={showCart}>
 					<IoArrowBackCircleOutline className='text-3xl text-red-400 font-semibold' />
@@ -70,14 +75,17 @@ const CartContainer = () => {
 
 				{/* Total section */}
 				<div className='w-full flex-1 bg-white rounded-t-[2rem] flex flex-col items-center justify-evenly px-8 py-2 shadow-md gap-2 '>
-				
 					<div className='flex items-center justify-between w-full px-12 py-2'>
 						<div className='flex items-center'>
-							<p className='text-gray-500 text-sm mr-2 font-semibold'>Subtotal: </p>
+							<p className='text-gray-500 text-sm mr-2 font-semibold'>
+								Subtotal:{' '}
+							</p>
 							<p className='text-base font-semibold'> 80</p>
 						</div>
 						<div className='flex items-center'>
-							<p className='text-gray-500 text-sm mr-2 font-semibold'>Taxes:</p>
+							<p className='text-gray-500 text-sm mr-2 font-semibold'>
+								Taxes:
+							</p>
 							<p className='text-base font-semibold'> 1</p>
 						</div>
 					</div>
@@ -99,7 +107,7 @@ const CartContainer = () => {
 					</div>
 				</div>
 			</div>
-		</div>
+		</motion.div>
 	)
 }
 
