@@ -100,13 +100,7 @@ const MenuContainer = () => {
 							{filterList &&
 								filterList.map((item) => (
 									<Product
-										key={item.id}
-										id={item.id}
-										img={item.data().photo}
-										name={item.data().name}
-										category={item.data().category}
-										price={item.data().price}
-										tag={item.data().tag}
+										item={item}
 									/>
 								))}
 						</div>
