@@ -16,11 +16,7 @@ import { actionType } from '../../context/reducer'
 import { useStateValue } from '../../context/StateProvider'
 
 import { AiOutlineShoppingCart } from 'react-icons/ai'
-import {
-	MdLogin,
-	MdLogout,
-	MdOutlineDashboardCustomize,
-} from 'react-icons/md'
+import { MdLogin, MdLogout, MdOutlineDashboardCustomize } from 'react-icons/md'
 import { BiUserPlus, BiFoodMenu, BiUser, BiPhoneCall } from 'react-icons/bi'
 import { AiOutlineHome } from 'react-icons/ai'
 
@@ -29,7 +25,7 @@ const Header = () => {
 	const adminEmail = 'snacksbettina@gmail.com'
 
 	const [isMenu, setIsMenu] = useState(false)
-	const [{ userr, cartShow }, dispatch] = useStateValue()
+	const [{ cartShow, cartItems }, dispatch] = useStateValue()
 
 	const showMenu = () => {
 		setIsMenu((menu) => !menu)
@@ -38,7 +34,7 @@ const Header = () => {
 	const showCart = () => {
 		dispatch({
 			type: actionType.SET_CART_SHOW,
-			cartShow: !cartShow
+			cartShow: !cartShow,
 		})
 	}
 
@@ -144,7 +140,10 @@ const Header = () => {
 								>
 									{/* Render the dashboard only if the user is admin */}
 									{user && user.email === adminEmail && (
-										<Link to={DASHBOARD} onClick={() => setIsMenu(false)}>
+										<Link
+											to={DASHBOARD}
+											onClick={() => setIsMenu(false)}
+										>
 											<p className='border-b cursor-pointer hover:bg-gray-100 px-4 py-2 duration-100 transition-all ease-in-out flex items-center gap-3 text-base'>
 												<MdOutlineDashboardCustomize className='text-xl text-red-500' />
 												Dashboard
@@ -153,7 +152,7 @@ const Header = () => {
 									)}
 									<p
 										className='cursor-pointer px-4 py-2 hover:bg-gray-100 duration-100 transition-all ease-in-out flex items-center gap-3 text-base'
-									onClick={logout}
+										onClick={logout}
 									>
 										<MdLogout className='text-xl text-red-500' />
 										Logout
@@ -185,19 +184,22 @@ const Header = () => {
 								</motion.div>
 							))}
 					</div>
+					{user && (
 						<motion.div
 							className='relative flex items-center justify-center'
-						whileTap={{ scale: 0.6 }}
-						onClick={showCart}
+							whileTap={{ scale: 0.6 }}
+							onClick={showCart}
 						>
 							<AiOutlineShoppingCart className='text-black text-3xl cursor-pointer' />
-							<div className='absolute -top-2 -right-2 w-5 h-5 rounded-full bg-red-600 flex items-center justify-center'>
-								<p className='text-xs text-white font-semibold'>
-									2
-								</p>
-							</div>
+							{cartItems && cartItems.length > 0 && (
+								<div className='absolute -top-2 -right-2 w-5 h-5 rounded-full bg-red-600 flex items-center justify-center'>
+									<p className='text-xs text-white font-semibold'>
+										{cartItems.length}
+									</p>
+								</div>
+							)}
 						</motion.div>
-					
+					)}
 				</motion.div>
 			</div>
 			{/* For mobile screens */}
@@ -208,9 +210,13 @@ const Header = () => {
 					onClick={showCart}
 				>
 					<AiOutlineShoppingCart className='text-black text-3xl cursor-pointer' />
-					<div className='absolute -top-2 -right-2 w-5 h-5 rounded-full bg-red-600 flex items-center justify-center'>
-						<p className='text-xs text-white font-semibold'>2</p>
-					</div>
+					{cartItems && cartItems.length > 0 && (
+						<div className='absolute -top-2 -right-2 w-5 h-5 rounded-full bg-red-600 flex items-center justify-center'>
+							<p className='text-xs text-white font-semibold'>
+								{cartItems.length}
+							</p>
+						</div>
+					)}
 				</motion.div>
 
 				<div>
@@ -249,26 +255,38 @@ const Header = () => {
 								exit={{ opacity: 0, x: 200 }}
 								className='flex flex-col'
 							>
-								<Link to={HOME} onClick={() => setIsMenu(false)}>
+								<Link
+									to={HOME}
+									onClick={() => setIsMenu(false)}
+								>
 									<li className='text-base  hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer px-4 py-2 hover:bg-gray-100 border-b gap-3 flex items-center'>
 										<AiOutlineHome className='text-xl text-red-500' />
 										Home
 									</li>
 								</Link>
 								{/*  */}
-								<Link to={ABOUT} onClick={() => setIsMenu(false)}>
+								<Link
+									to={ABOUT}
+									onClick={() => setIsMenu(false)}
+								>
 									<li className='text-base  hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer px-4 py-2 hover:bg-gray-100 border-b gap-3 flex items-center'>
 										<BiUser className='text-xl text-red-500' />
 										About Us
 									</li>
 								</Link>
-								<Link to={MENU} onClick={() => setIsMenu(false)}>
+								<Link
+									to={MENU}
+									onClick={() => setIsMenu(false)}
+								>
 									<li className='text-base  hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer px-4 py-2 hover:bg-gray-100 border-b gap-3 flex items-center'>
 										<BiFoodMenu className='text-xl text-red-500' />
 										Menu
 									</li>
 								</Link>
-								<Link to={CONTACT} onClick={() => setIsMenu(false)}>
+								<Link
+									to={CONTACT}
+									onClick={() => setIsMenu(false)}
+								>
 									<li className='text-base  hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer px-4 py-2 hover:bg-gray-100 border-b gap-3 flex items-center'>
 										<BiPhoneCall className='text-xl text-red-500' />
 										Contact
@@ -280,7 +298,10 @@ const Header = () => {
 								<div>
 									{/* Render the dashboard only if the user is admin */}
 									{user && user.email === adminEmail && (
-										<Link to={DASHBOARD} onClick={() => setIsMenu(false)}>
+										<Link
+											to={DASHBOARD}
+											onClick={() => setIsMenu(false)}
+										>
 											<p className='border-b cursor-pointer hover:bg-gray-100 px-4 py-2 duration-100 transition-all ease-in-out flex items-center gap-3 text-base'>
 												<MdOutlineDashboardCustomize className='text-xl text-red-500' />
 												Dashboard
@@ -300,16 +321,16 @@ const Header = () => {
 								<div>
 									<Link
 										to={SIGN_UP}
-											className='cursor-pointer px-4 py-2 hover:bg-gray-100 hover:border-b-2  hover:border-red-400  duration-100 transition-all ease-in-out flex items-center gap-3 text-base'
-											onClick={() => setIsMenu(false)}
+										className='cursor-pointer px-4 py-2 hover:bg-gray-100 hover:border-b-2  hover:border-red-400  duration-100 transition-all ease-in-out flex items-center gap-3 text-base'
+										onClick={() => setIsMenu(false)}
 									>
 										<BiUserPlus className='text-xl text-red-500' />
 										Sign Up
 									</Link>
 									<Link
 										to={SIGN_IN}
-											className='cursor-pointer px-4 py-2 hover:bg-gray-100 hover:border-b-2  hover:border-red-400 hover:rounded-b-lg duration-100 transition-all ease-in-out flex items-center gap-3 text-base'
-											onClick={() => setIsMenu(false)}
+										className='cursor-pointer px-4 py-2 hover:bg-gray-100 hover:border-b-2  hover:border-red-400 hover:rounded-b-lg duration-100 transition-all ease-in-out flex items-center gap-3 text-base'
+										onClick={() => setIsMenu(false)}
 									>
 										<MdLogin className='text-xl text-red-500' />
 										Log In
