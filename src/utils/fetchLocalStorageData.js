@@ -9,11 +9,10 @@ export const fetchUser = () => {
 }
 
 export const fetchCart = () => {
-	// store user info in cartInfo if user is not undefined
 	const cartInfo =
-		localStorage.getItem('cartItem') !== 'undefined'
+		localStorage.getItem('cartItems') !== 'undefined'
 			? JSON.parse(localStorage.getItem("cartItems"))
             : localStorage.clear()
     
-    return cartInfo ? cartInfo : []
+    return cartInfo.length > 0 ? cartInfo : []
 }
