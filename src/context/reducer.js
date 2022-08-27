@@ -1,5 +1,6 @@
 export const actionType = {
-    SET_USER: 'SET_USER'
+	SET_USER: 'SET_USER',
+	SET_CART_SHOW: 'SET_CART_SHOW'
 }
 
 const reducer = (state, action) => {
@@ -13,6 +14,13 @@ const reducer = (state, action) => {
 				...state,
 				// update only user info
 				user: action.user,
+			}
+		case actionType.SET_CART_SHOW:
+			return {
+				// whatever the state is, return it as is
+				...state,
+				// update only user info
+				cartShow: action.cartShow,
 			}
 		default:
 			return state
