@@ -5,14 +5,20 @@ import { IoArrowBackCircleOutline } from 'react-icons/io5'
 import { MdRefresh } from 'react-icons/md'
 import { BsCart3 } from 'react-icons/bs'
 import { motion } from 'framer-motion'
-import { quiche } from '../images'
 import { Cart } from '../components'
 import { useState, useEffect } from 'react'
+import PaystackPop from '@paystack/inline-js'
+import {
+	addDoc,
+	collection,
+} from '@firebase/firestore'
+import { firestore } from '../../firebase.config'
 
 const CartContainer = () => {
-	const [{ cartShow, cartItems }, dispatch] = useStateValue()
+	const [{ user, cartShow, cartItems }, dispatch] = useStateValue()
 	const [flag, setFlag] = useState(1)
-	const [tot, setTot] = useState(0)
+    const [tot, setTot] = useState(0)
+    const [hasPaid, setHasPaid] = useState(false)
 
 	const showCart = () => {
 		dispatch({
@@ -26,7 +32,7 @@ const CartContainer = () => {
           return accumulator + item.qty * item.price;
         }, 0);
         setTot(totalPrice);
-        console.log(tot);
+        // console.log(tot);
       }, [tot, flag]);
     
     const clearCart = () => {
@@ -36,7 +42,44 @@ const CartContainer = () => {
         });
     
         localStorage.setItem("cartItems", JSON.stringify([]));
-      };
+    };
+
+    const createOrder = () => {
+        try {
+            if (hasPaid) {
+                console.log("Creating order ....")
+            } 
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    
+    const checkout = () => {
+        const paystack = new PaystackPop()
+
+        paystack.newTransaction({
+            key: 'pk_test_1d5b09c72c5f58de4539928514d88cf31b24debd',
+            amount: tot * 100,
+            email: user.email,
+            firstname: user.displayName,
+            
+        })
+
+        setHasPaid(true)
+        createOrder()
+        
+
+        console.log(user.uid)
+        console.log(user.displayName)
+        console.log(user.email)
+        console.log(tot * 100)
+        console.log(cartItems)
+
+        clearCart()
+        showCart()
+        console.log("you have checked out")
+    }
 
 	return (
 		<motion.div
@@ -102,7 +145,8 @@ const CartContainer = () => {
 							<motion.button
 								whileTap={{ scale: 0.8 }}
 								type='button'
-								className='bg-gradient-to-br from-red-400 to-red-500 hover:from-red-500 hover:to-red-500 transition-colors duration-700 ease-linear  px-7 py-2 rounded-full text-white '
+                                className='bg-gradient-to-br from-red-400 to-red-500 hover:from-red-500 hover:to-red-500 transition-colors duration-700 ease-linear  px-7 py-2 rounded-full text-white '
+                                onClick={checkout}
 							>
 								Checkout
 							</motion.button>
