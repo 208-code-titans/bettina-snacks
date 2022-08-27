@@ -6,7 +6,7 @@ const MenuPage = () => {
     <div className='pt-[67px] md:pt[67px] w-screen h-screen'>
       <MenuLanding />
       <MenuContainer />
-      <CartContainer />
+      {/* <CartContainer /> */}
       <Footer />
     </div>
   )
