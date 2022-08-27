@@ -29,10 +29,17 @@ const Header = () => {
 	const adminEmail = 'snacksbettina@gmail.com'
 
 	const [isMenu, setIsMenu] = useState(false)
-	const [{ userr }, dispatch] = useStateValue()
+	const [{ userr, cartShow }, dispatch] = useStateValue()
 
 	const showMenu = () => {
 		setIsMenu((menu) => !menu)
+	}
+
+	const showCart = () => {
+		dispatch({
+			type: actionType.SET_CART_SHOW,
+			cartShow: !cartShow
+		})
 	}
 
 	const logout = () => {
@@ -180,7 +187,8 @@ const Header = () => {
 					</div>
 						<motion.div
 							className='relative flex items-center justify-center'
-							whileTap={{ scale: 0.6 }}
+						whileTap={{ scale: 0.6 }}
+						onClick={showCart}
 						>
 							<AiOutlineShoppingCart className='text-black text-3xl cursor-pointer' />
 							<div className='absolute -top-2 -right-2 w-5 h-5 rounded-full bg-red-600 flex items-center justify-center'>
@@ -197,6 +205,7 @@ const Header = () => {
 				<motion.div
 					className='relative flex items-center justify-center'
 					whileTap={{ scale: 0.6 }}
+					onClick={showCart}
 				>
 					<AiOutlineShoppingCart className='text-black text-3xl cursor-pointer' />
 					<div className='absolute -top-2 -right-2 w-5 h-5 rounded-full bg-red-600 flex items-center justify-center'>
