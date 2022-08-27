@@ -207,6 +207,7 @@ const DashboardAdd = () => {
 					category: category,
 					slug: slug,
 					price: price,
+					qty: 1,
 				})
 				setFields(true)
 				setMessage("Success")
