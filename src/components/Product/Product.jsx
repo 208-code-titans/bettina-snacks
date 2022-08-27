@@ -14,16 +14,17 @@ const Product = ({ item }) => {
     
     const addToCart = () => {
         // console.log(item.data())
-        
+
+        // Save cart items in storage
+        localStorage.setItem("cartItems", JSON.stringify(items))
         dispatch({
             type: actionType.SET_CART_ITEMS,
             // Append new item to array
             cartItems : items
         })
-        // console.log(cartItems)
+        // console.log(items)
 
-        // Save cart items in storage
-        localStorage.setItem("cartItems", JSON.stringify(items))
+        
     }
 
     useEffect(() => {
