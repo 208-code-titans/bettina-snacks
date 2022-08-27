@@ -40,12 +40,7 @@ const HomeExplore = () => {
 											</span>{' '}
 										</p>
 									</div>
-									<motion.div
-										className='bg-gradient-to-br from-red-400 to-red-500 hover:from-red-500 hover:to-red-500 transition-colors duration-700 ease-linear h-10 w-10 rounded-full flex items-center justify-center text-white cursor-pointer text-xl '
-										whileTap={{ scale: 0.6 }}
-									>
-										<BsCartPlus />
-									</motion.div>
+									
 								</div>
 							</div>
 						</div>

@@ -18,9 +18,14 @@ import {
 	DASHBOARD,
 } from './constants/routes'
 import { AnimatePresence } from 'framer-motion'
-import { Header } from './components/components'
+import { Header, CartContainer } from './components/components'
+import { useStateValue } from './context/StateProvider'
+import { useEffect} from 'react'
 
 function App() {
+	const [{ cartShow }, dispatch] = useStateValue()
+	
+	useEffect(()=> {}, [cartShow])
 	return (
 		<AnimatePresence exitBeforeEnter>
 			<Header />
@@ -34,7 +39,12 @@ function App() {
 				<Route path={SIGN_UP} element={<SignUpPage />} />
 				<Route path={DASHBOARD} element={<DashboardPage />} />
 			</Routes>
-
+			{
+				// render cart if cart is true
+				cartShow && (
+					<CartContainer />
+				)
+			}
 			
 		</AnimatePresence>
 	)
