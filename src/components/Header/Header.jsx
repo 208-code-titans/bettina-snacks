@@ -14,7 +14,6 @@ import { motion } from 'framer-motion'
 import { fetchUser } from '../../utils/fetchLocalStorageData'
 import { actionType } from '../../context/reducer'
 import { useStateValue } from '../../context/StateProvider'
-
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { MdLogin, MdLogout, MdOutlineDashboardCustomize } from 'react-icons/md'
 import { BiUserPlus, BiFoodMenu, BiUser, BiPhoneCall } from 'react-icons/bi'
@@ -198,7 +197,7 @@ const Header = () => {
 									</p>
 								</div>
 							)}
-						</motion.div>
+						</motion.div>	
 					)}
 				</motion.div>
 			</div>
