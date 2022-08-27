@@ -3,7 +3,6 @@ import {
 	LandingSubHeading,
 	Product,
 	Loader,
-	FilterButtons,
 } from '../components'
 import { GiCupcake } from 'react-icons/gi'
 
