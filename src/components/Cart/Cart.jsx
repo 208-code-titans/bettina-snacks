@@ -1,9 +1,58 @@
 import React from 'react'
 import { BiMinus, BiPlus } from 'react-icons/bi'
 import { motion } from 'framer-motion'
+import { useState } from 'react'
+import { useStateValue } from '../../context/StateProvider'
+import { actionType } from '../../context/reducer'
+import { useEffect } from 'react'
+let items = []
 
+const Cart = ({ item, setFlag, flag }) => {
+	const [qty, setQty] = useState(item.qty)
+	// const [ items, setItems] = useState([])
+	const [{ cartItems }, dispatch] = useStateValue()
+	const cartDispatch = () => {
+		localStorage.setItem('cartItems', JSON.stringify(items))
+		dispatch({
+			type: actionType.SET_CART_ITEMS,
+			cartItems: items,
+		})
+	}
 
-const Cart = ({item}) => {
+	const updateQty = (action, id) => {
+		if (action === 'add') {
+			setQty(qty + 1)
+			cartItems.map((item) => {
+				if (item.id === id) {
+					item.qty += 1
+					setFlag(flag + 1)
+				}
+			})
+
+			cartDispatch()
+		} else {
+			if (qty == 1) {
+				items = cartItems.filter((item) => item.id !== id)
+				setFlag(flag + 1)
+				cartDispatch()
+			} else {
+				setQty(qty - 1)
+				cartItems.map((item) => {
+					if (item.id === id) {
+						item.qty -= 1
+						setFlag(flag + 1)
+					}
+				})
+
+				cartDispatch()
+			}
+		}
+	}
+
+	useEffect(() => {
+		items = cartItems
+	}, [qty, items])
+
 	return (
 		<div
 			key={item.id}
@@ -20,23 +69,25 @@ const Cart = ({item}) => {
 					{item.name} - {item.tag}
 				</p>
 				<p className='text-lg block text-gray-700 font-semibold'>
-					GHC{item.price}
+					GHC{item.price * qty}
 				</p>
 			</div>
 			<div className='group flex flex-col items-center justify-center   cursor-pointer py-1'>
-				<motion.div
+				<motion.button
 					whileTap={{ scale: 0.75 }}
-					className='text-lg bg-gradient-to-br from-red-400 to-red-500 hover:from-red-500 hover:to-red-500 transition-colors duration-700 ease-linear rounded-full p-1 text-white'
+					className='text-lg bg-gradient-to-br from-red-400 to-red-500 hover:from-red-500 hover:to-red-500 transition-colors duration-700 ease-linear rounded-full p-1 text-white disabled:opacity-50'
+					onClick={() => updateQty('remove', item.id)}
 				>
 					<BiMinus />
-				</motion.div>
-				<p className='text-lg'>{item.qty}</p>
-				<motion.div
+				</motion.button>
+				<p className='text-lg'>{qty}</p>
+				<motion.button
 					whileTap={{ scale: 0.75 }}
 					className='text-lg bg-gradient-to-br from-red-400 to-red-500 hover:from-red-500 hover:to-red-500 transition-colors duration-700 ease-linear rounded-full p-1 text-white'
+					onClick={() => updateQty('add', item.id)}
 				>
 					<BiPlus />
-				</motion.div>
+				</motion.button>
 			</div>
 		</div>
 	)

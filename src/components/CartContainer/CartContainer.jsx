@@ -7,16 +7,36 @@ import { BsCart3 } from 'react-icons/bs'
 import { motion } from 'framer-motion'
 import { quiche } from '../images'
 import { Cart } from '../components'
+import { useState, useEffect } from 'react'
 
 const CartContainer = () => {
 	const [{ cartShow, cartItems }, dispatch] = useStateValue()
+	const [flag, setFlag] = useState(1)
+	const [tot, setTot] = useState(0)
 
 	const showCart = () => {
 		dispatch({
 			type: actionType.SET_CART_SHOW,
 			cartShow: !cartShow,
 		})
-	}
+    }
+
+    useEffect(() => {
+        let totalPrice = cartItems.reduce(function (accumulator, item) {
+          return accumulator + item.qty * item.price;
+        }, 0);
+        setTot(totalPrice);
+        console.log(tot);
+      }, [tot, flag]);
+    
+    const clearCart = () => {
+        dispatch({
+          type: actionType.SET_CART_ITEMS,
+          cartItems: [],
+        });
+    
+        localStorage.setItem("cartItems", JSON.stringify([]));
+      };
 
 	return (
 		<motion.div
@@ -35,7 +55,8 @@ const CartContainer = () => {
 				<div>
 					<motion.p
 						whileTap={{ scale: 0.8 }}
-						className='flex items-center gap-2 p-1 px-2 bg-red-100  rounded-md hover:shadow-md duration-100 ease-in-out transition-all cursor-pointer test-base'
+                        className='flex items-center gap-2 p-1 px-2 bg-red-100  rounded-md hover:shadow-md duration-100 ease-in-out transition-all cursor-pointer test-base'
+                        onClick={clearCart}
 					>
 						Clear <MdRefresh />
 					</motion.p>
@@ -48,7 +69,7 @@ const CartContainer = () => {
 						{cartItems &&
 							cartItems.length > 0 &&
 							cartItems.map((item) => (
-                                <Cart item={item} key={ item.id} />
+								<Cart item={item} key={item.id} setFlag={setFlag} flag={flag} />
 							))}
 					</div>
 
@@ -59,7 +80,7 @@ const CartContainer = () => {
 								<p className='text-gray-500 text-sm mr-2 font-semibold'>
 									Subtotal:{' '}
 								</p>
-								<p className='text-base font-semibold'> 80</p>
+                                <p className='text-base font-semibold'> {tot}</p>
 							</div>
 							<div className='flex items-center'>
 								<p className='text-gray-500 text-sm mr-2 font-semibold'>
@@ -75,7 +96,7 @@ const CartContainer = () => {
 								</p>
 								<p className='text-2xl font-semibold'>
 									{' '}
-									<span className='text-sm'>GHC</span> 81
+									<span className='text-sm'>GHC</span> {tot + 1}
 								</p>
 							</div>
 							<motion.button
