@@ -4,6 +4,8 @@ export { default as Button} from './Button/Button'
 export { default as Loader} from './Loader/Loader'
 export { default as Product} from './Product/Product'
 export { default as FilterButtons} from './FilterButtons/FilterButtons'
+export { default as Cart} from './Cart/Cart'
+export { default as CartContainer} from './CartContainer/CartContainer'
 export { default as LandingSubHeading } from './LandingSubHeading/LandingSubHeading'
 
 
