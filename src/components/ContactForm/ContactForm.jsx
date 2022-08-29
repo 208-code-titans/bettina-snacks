@@ -1,5 +1,7 @@
 import React from 'react'
-import { BsEnvelope, BsWhatsapp, BsTelegram } from 'react-icons/bs'
+import { BiUser } from 'react-icons/bi'
+import { BsChatText } from 'react-icons/bs'
+import { FiAtSign } from 'react-icons/fi'
 import { useRef } from 'react'
 import { LandingSubHeading } from '../components'
 import { contactData } from '../../fixtures/data'
@@ -10,7 +12,7 @@ const ContactForm = () => {
 	const sendEmail = () => {}
 
 	return (
-		<div className='w-screen h-screen '>
+		<div className='w-screen min-h-max mb-32 lg:mb-0 '>
 			<div className='mt-32 w-full'>
 				<p className='text-center text-sm text-gray-500 mb-4 font-semibold'>
 					Get in touch with us
@@ -29,15 +31,56 @@ const ContactForm = () => {
 									<p className='font-medium text-sm'>
 										{item.handle}
 									</p>
-									<a href={item.link} className='text-red-500'>
+									<a
+										href={item.link}
+										className='text-red-500'
+									>
 										Send a message
 									</a>
 								</div>
 							))}
 					</div>
-          <div className=''>
-            
-          </div>
+					<form
+						ref={form}
+						onSubmit={sendEmail}
+						className='flex flex-col gap-6'
+					>
+						<div className='relative '>
+							<BiUser className='inputIcon' />
+							<input
+								type='text'
+								required
+								name='name'
+								placeholder='Enter your name'
+								className='contactInput'
+							/>
+						</div>
+						<div className='relative'>
+							<FiAtSign className='inputIcon' />
+							<input
+								type='email'
+								name='email'
+								placeholder='Enter your email'
+								className='contactInput'
+							/>
+						</div>
+						<div className='relative'>
+							<BsChatText className='inputIcon top-2' />
+							<textarea
+								name='message'
+								rows='7'
+								className='contactInput'
+								placeholder='Enter your message'
+							></textarea>
+						</div>
+
+						<button
+							type='submit'
+							className='bg-gradient-to-br from-red-400 to-red-500 hover:from-red-500 hover:to-red-500 transition-colors duration-700 ease-linear block px-9 py-4 rounded-full text-white w-max'
+						>
+							Send Message
+						</button>
+					</form>
 				</div>
 			</div>
 		</div>
