@@ -7,7 +7,7 @@ const AboutPage = () => {
       <AboutLanding />
       <AboutHistory />
       <AboutAbout />
-      <AboutEvent />
+      {/* <AboutEvent /> */}
       <Footer />
     </div>
   )
