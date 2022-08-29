@@ -25,7 +25,7 @@ const MenuContainer = () => {
 				setLoading(false)
 			}
 		)
-	}, [firestore])
+	}, [])
 	// console.log(allProducts)
 
 	const menuItems = [

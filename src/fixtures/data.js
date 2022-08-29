@@ -1,3 +1,5 @@
+import { BsEnvelope, BsWhatsapp, BsFacebook} from 'react-icons/bs'
+
 export const reviews = [
     {
       id: 1,
@@ -66,6 +68,30 @@ export const pendingOrders = [
     img: "https://randomuser.me/api/portraits/men/2.jpg",
     desc: "Rock Buns - 2, Meat Pie - 5"
 
+  },
+]
+
+export const contactData = [
+  {
+    id: 1,
+    icon: <BsEnvelope className='contactIcon'/>,
+    title: "Email",
+    handle: "snacksbettina@gmail.com",
+    link: "mailto:snacksbettina@gmail.com"
+  },
+  {
+    id: 2,
+    icon: <BsWhatsapp className='contactIcon' />,
+    title: "WhatsApp",
+    handle: "050 229 7337",
+    link: "https://api.whatsapp.com/send?phone=+233502297337"
+  },
+  {
+    id: 3,
+    icon: <BsFacebook className='contactIcon' />,
+    title: "Facebook",
+    handle: "lorem_ipsum",
+    link: "https://facebook.com"
   },
 ]
   
