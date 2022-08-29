@@ -44,6 +44,12 @@ h6 {
     .contactIcon {
         @apply text-2xl mb-2 text-red-500
     }
+    .contactInput {
+        @apply w-full px-6 bg-transparent text-base resize-none  border-0 border-b-2 border-red-100 focus:ring-0 focus:border-red-300 relative pl-10 
+    }
+    .inputIcon {
+        @apply absolute bottom-[.5rem] left-2 text-2xl text-red-400
+    }
 }
 
 ::-webkit-scrollbar {
