@@ -39,6 +39,13 @@ h6 {
 
 }
 
+
+@layer components {
+    .contactIcon {
+        @apply text-2xl mb-2 text-red-500
+    }
+}
+
 ::-webkit-scrollbar {
     width: 5px;
     background-color: #fff;
@@ -64,3 +71,5 @@ h6 {
     right: -0.5rem;
     border-radius: 50%;
   }
+
+  
