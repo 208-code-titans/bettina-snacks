@@ -1,10 +1,10 @@
 import React from 'react'
-import { aboutdeco2 } from "../images"
+import { aboutdeco2, bg } from "../images"
 
 
 const AboutAbout = () => {
   return (
-    <div className='text-center mb-8 border-none h-[80vh] flex items-center justify-center text-white bg-cover' style={{ backgroundImage: `url(${aboutdeco2})` }}>
+    <div className='text-center mb-8 border-none h-[80vh] flex items-center justify-center text-white bg-cover' style={{ backgroundImage: `url(${bg})` }}>
       <div className=' mx-auto flex flex-col gap-9'>
         <h1 className='text-7xl uppercase'>ABO<span className='text-red-600'>UT</span></h1>
 
