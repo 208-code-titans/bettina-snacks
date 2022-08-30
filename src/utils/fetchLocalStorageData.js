@@ -14,5 +14,5 @@ export const fetchCart = () => {
 			? JSON.parse(localStorage.getItem("cartItems"))
             : localStorage.clear()
     
-    return cartInfo.length > 0 ? cartInfo : []
+    return cartInfo ? cartInfo : []
 }
