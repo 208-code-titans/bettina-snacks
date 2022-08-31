@@ -5,11 +5,22 @@ import { FiAtSign } from 'react-icons/fi'
 import { useRef } from 'react'
 import { LandingSubHeading } from '../components'
 import { contactData } from '../../fixtures/data'
+import emailjs from '@emailjs/browser';
 
 const ContactForm = () => {
 	const form = useRef()
 
-	const sendEmail = () => {}
+	const sendEmail = (e) => {
+		e.preventDefault();
+	
+		emailjs.sendForm('service_tu9t2b1', 'template_yu38vwc', form.current, 'FdKD7gINyfoLX8RoM')
+		  .then((result) => {
+			  console.log(result.text);
+		  }, (error) => {
+			  console.log(error.text);
+		  });
+		  (e).target.reset();
+	  };
 
 	return (
 		<div className='w-screen min-h-max mb-32 lg:mb-0 '>
@@ -50,7 +61,7 @@ const ContactForm = () => {
 							<input
 								type='text'
 								required
-								name='name'
+								name='user_name'
 								placeholder='Enter your name'
 								className='contactInput'
 							/>
@@ -59,7 +70,7 @@ const ContactForm = () => {
 							<FiAtSign className='inputIcon' />
 							<input
 								type='email'
-								name='email'
+								name='user_email'
 								placeholder='Enter your email'
 								className='contactInput'
 							/>
@@ -67,7 +78,7 @@ const ContactForm = () => {
 						<div className='relative'>
 							<BsChatText className='inputIcon top-2' />
 							<textarea
-								name='message'
+								name='user_message'
 								rows='7'
 								className='contactInput'
 								placeholder='Enter your message'
