@@ -11,8 +11,12 @@ import { usePaystackPayment } from 'react-paystack'
 import {
 	addDoc,
 	setDoc,
+	doc,
+	getDoc,
+	getDocs,
 	collection,
-	serverTimestamp
+	onSnapshot,
+	serverTimestamp,
 } from '@firebase/firestore'
 import { firestore } from '../../firebase.config'
 // import axios from 'axios'
@@ -20,117 +24,114 @@ import { firestore } from '../../firebase.config'
 const CartContainer = () => {
 	const [{ user, cartShow, cartItems }, dispatch] = useStateValue()
 	const [flag, setFlag] = useState(1)
-    const [tot, setTot] = useState(0)
+	const [tot, setTot] = useState(0)
 	const [hasPaid, setHasPaid] = useState(false)
+	const [id, setId] = useState('')
+	const dbRef = collection(firestore, 'users')
+	// console.log(dbRef)
 	
-	// console.log(user)
+	onSnapshot(dbRef, (snapshot) => {
+		snapshot.docs.map((snap) => {
+			setId(snap.id)
+		})
+	})
 
 	const showCart = () => {
 		dispatch({
 			type: actionType.SET_CART_SHOW,
 			cartShow: !cartShow,
 		})
-    }
+	}
 
-    useEffect(() => {
-        let totalPrice = cartItems.reduce(function (accumulator, item) {
-          return accumulator + item.qty * item.price;
-        }, 0);
-        setTot(totalPrice);
-        // console.log(tot);
-      }, [tot, flag]);
-    
-    const clearCart = () => {
-        dispatch({
-          type: actionType.SET_CART_ITEMS,
-          cartItems: [],
-        });
-    
-        localStorage.setItem("cartItems", JSON.stringify([]));
-    };
+	useEffect(() => {
+		let totalPrice = cartItems.reduce(function (accumulator, item) {
+			return accumulator + item.qty * item.price
+		}, 0)
+		setTot(totalPrice)
+		// console.log(tot);
+	}, [tot, flag])
 
-    const createOrder = async () => {
-        try {
-			await addDoc(collection(firestore, 'userOrders', user.uid), {
+	const clearCart = () => {
+		dispatch({
+			type: actionType.SET_CART_ITEMS,
+			cartItems: [],
+		})
+
+		localStorage.setItem('cartItems', JSON.stringify([]))
+	}
+
+	const createOrder = async () => {
+		try {
+			await addDoc(collection(firestore, 'users', id, 'orders'), {
 				orderDetails: cartItems,
-				completionStatus: "pending",
+				completionStatus: 'pending',
 				price: tot,
-				timestamp: serverTimestamp()
-		   })
+				timestamp: serverTimestamp(),
+			})
 			await addDoc(collection(firestore, 'allOrders'), {
 				username: user.displayName,
 				userImage: user.photoURL,
 				userEmail: user.email,
 				orderDetails: cartItems,
-				completionStatus: "pending",
+				completionStatus: 'pending',
 				price: tot,
-				timestamp: serverTimestamp()
-		   })
-			
-            
-        } catch (error) {
-            console.log(error)
-        }
+				timestamp: serverTimestamp(),
+			})
+		} catch (error) {
+			console.log(error)
+		}
 	}
-	
+
 	const paystackConfig = {
-		reference: (new Date()).getTime().toString(),
+		reference: new Date().getTime().toString(),
 		email: user.email,
-        amount: tot * 100,
+		amount: tot * 100,
 		publicKey: 'pk_test_1d5b09c72c5f58de4539928514d88cf31b24debd',
-		currency: 'GHS'
+		currency: 'GHS',
 	}
 
 	const onSuccess = () => {
-		console.log("Payment Succeeded")
+		console.log('Payment Succeeded')
 
-        createOrder()
+		createOrder()
 
 		clearCart()
-        showCart()
-        console.log("you have checked out")
-
+		showCart()
+		console.log('you have checked out')
 	}
 
 	const onClose = () => {
-		console.log("Payment Failed")
-        setHasPaid(false)
-
+		console.log('Payment Failed')
+		setHasPaid(false)
 	}
 
-    
-    const checkout = () => {
+	const checkout = () => {
 		// Get verification code
 
 		// Get verification function
 
 		// Callback from verification
 
-
-
-        setHasPaid(true)
-        // createOrder()
+		setHasPaid(true)
+		// createOrder()
 		// if (hasPaid === true) {
 		// 	console.log("Creating order ....")
 
 		// 	console.log(user.uid)
-        // console.log(user.displayName)
-        // console.log(user.photoURL)
-        // console.log(user.email)
-        // console.log(tot * 100)
-        // console.log(cartItems)
-		// } 
+		// console.log(user.displayName)
+		// console.log(user.photoURL)
+		// console.log(user.email)
+		// console.log(tot * 100)
+		// console.log(cartItems)
+		// }
 
-		hasPaid ? alert("Creating order") : alert("You haven't paid")
-        
+		hasPaid ? alert('Creating order') : alert("You haven't paid")
 
-        
-
-        clearCart()
-        showCart()
-        console.log("you have checked out")
+		clearCart()
+		showCart()
+		console.log('you have checked out')
 	}
-	
+
 	const initializePay = usePaystackPayment(paystackConfig)
 
 	return (
@@ -150,8 +151,8 @@ const CartContainer = () => {
 				<div>
 					<motion.p
 						whileTap={{ scale: 0.8 }}
-                        className='flex items-center gap-2 p-1 px-2 bg-red-100  rounded-md hover:shadow-md duration-100 ease-in-out transition-all cursor-pointer test-base'
-                        onClick={clearCart}
+						className='flex items-center gap-2 p-1 px-2 bg-red-100  rounded-md hover:shadow-md duration-100 ease-in-out transition-all cursor-pointer test-base'
+						onClick={clearCart}
 					>
 						Clear <MdRefresh />
 					</motion.p>
@@ -164,7 +165,12 @@ const CartContainer = () => {
 						{cartItems &&
 							cartItems.length > 0 &&
 							cartItems.map((item) => (
-								<Cart item={item} key={item.id} setFlag={setFlag} flag={flag} />
+								<Cart
+									item={item}
+									key={item.id}
+									setFlag={setFlag}
+									flag={flag}
+								/>
 							))}
 					</div>
 
@@ -175,7 +181,10 @@ const CartContainer = () => {
 								<p className='text-gray-500 text-sm mr-2 font-semibold'>
 									Subtotal:{' '}
 								</p>
-                                <p className='text-base font-semibold'> {tot}</p>
+								<p className='text-base font-semibold'>
+									{' '}
+									{tot}
+								</p>
 							</div>
 							<div className='flex items-center'>
 								<p className='text-gray-500 text-sm mr-2 font-semibold'>
@@ -191,13 +200,14 @@ const CartContainer = () => {
 								</p>
 								<p className='text-2xl font-semibold'>
 									{' '}
-									<span className='text-sm'>GHC</span> {tot + 1}
+									<span className='text-sm'>GHC</span>{' '}
+									{tot + 1}
 								</p>
 							</div>
 							<motion.button
 								whileTap={{ scale: 0.8 }}
 								type='button'
-                                className='bg-gradient-to-br from-red-400 to-red-500 hover:from-red-500 hover:to-red-500 transition-colors duration-700 ease-linear  px-7 py-2 rounded-full text-white '
+								className='bg-gradient-to-br from-red-400 to-red-500 hover:from-red-500 hover:to-red-500 transition-colors duration-700 ease-linear  px-7 py-2 rounded-full text-white '
 								onClick={() => {
 									initializePay(onSuccess, onClose)
 								}}
