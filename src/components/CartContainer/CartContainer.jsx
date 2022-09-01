@@ -7,18 +7,23 @@ import { BsCart3 } from 'react-icons/bs'
 import { motion } from 'framer-motion'
 import { Cart } from '../components'
 import { useState, useEffect } from 'react'
-import PaystackPop from '@paystack/inline-js'
+import { usePaystackPayment } from 'react-paystack'
 import {
 	addDoc,
+	setDoc,
 	collection,
+	serverTimestamp
 } from '@firebase/firestore'
 import { firestore } from '../../firebase.config'
+// import axios from 'axios'
 
 const CartContainer = () => {
 	const [{ user, cartShow, cartItems }, dispatch] = useStateValue()
 	const [flag, setFlag] = useState(1)
     const [tot, setTot] = useState(0)
-    const [hasPaid, setHasPaid] = useState(false)
+	const [hasPaid, setHasPaid] = useState(false)
+	
+	// console.log(user)
 
 	const showCart = () => {
 		dispatch({
@@ -44,42 +49,89 @@ const CartContainer = () => {
         localStorage.setItem("cartItems", JSON.stringify([]));
     };
 
-    const createOrder = () => {
+    const createOrder = async () => {
         try {
-            if (hasPaid) {
-                console.log("Creating order ....")
-            } 
+			await addDoc(collection(firestore, 'userOrders', user.uid), {
+				orderDetails: cartItems,
+				completionStatus: "pending",
+				price: tot,
+				timestamp: serverTimestamp()
+		   })
+			await addDoc(collection(firestore, 'allOrders'), {
+				username: user.displayName,
+				userImage: user.photoURL,
+				userEmail: user.email,
+				orderDetails: cartItems,
+				completionStatus: "pending",
+				price: tot,
+				timestamp: serverTimestamp()
+		   })
+			
+            
         } catch (error) {
             console.log(error)
         }
-    }
+	}
+	
+	const paystackConfig = {
+		reference: (new Date()).getTime().toString(),
+		email: user.email,
+        amount: tot * 100,
+		publicKey: 'pk_test_1d5b09c72c5f58de4539928514d88cf31b24debd',
+		currency: 'GHS'
+	}
+
+	const onSuccess = () => {
+		console.log("Payment Succeeded")
+
+        createOrder()
+
+		clearCart()
+        showCart()
+        console.log("you have checked out")
+
+	}
+
+	const onClose = () => {
+		console.log("Payment Failed")
+        setHasPaid(false)
+
+	}
 
     
     const checkout = () => {
-        const paystack = new PaystackPop()
+		// Get verification code
 
-        paystack.newTransaction({
-            key: 'pk_test_1d5b09c72c5f58de4539928514d88cf31b24debd',
-            amount: tot * 100,
-            email: user.email,
-            firstname: user.displayName,
-            
-        })
+		// Get verification function
+
+		// Callback from verification
+
+
 
         setHasPaid(true)
-        createOrder()
+        // createOrder()
+		// if (hasPaid === true) {
+		// 	console.log("Creating order ....")
+
+		// 	console.log(user.uid)
+        // console.log(user.displayName)
+        // console.log(user.photoURL)
+        // console.log(user.email)
+        // console.log(tot * 100)
+        // console.log(cartItems)
+		// } 
+
+		hasPaid ? alert("Creating order") : alert("You haven't paid")
         
 
-        console.log(user.uid)
-        console.log(user.displayName)
-        console.log(user.email)
-        console.log(tot * 100)
-        console.log(cartItems)
+        
 
         clearCart()
         showCart()
         console.log("you have checked out")
-    }
+	}
+	
+	const initializePay = usePaystackPayment(paystackConfig)
 
 	return (
 		<motion.div
@@ -146,7 +198,9 @@ const CartContainer = () => {
 								whileTap={{ scale: 0.8 }}
 								type='button'
                                 className='bg-gradient-to-br from-red-400 to-red-500 hover:from-red-500 hover:to-red-500 transition-colors duration-700 ease-linear  px-7 py-2 rounded-full text-white '
-                                onClick={checkout}
+								onClick={() => {
+									initializePay(onSuccess, onClose)
+								}}
 							>
 								Checkout
 							</motion.button>
