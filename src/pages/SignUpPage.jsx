@@ -17,14 +17,7 @@ import { FcGoogle } from 'react-icons/fc'
 import { motion } from 'framer-motion'
 import {
 	addDoc,
-	setDoc,
-	deleteDoc,
-	doc,
 	collection,
-	serverTimestamp,
-	onSnapshot,
-	query,
-	orderBy,
 } from '@firebase/firestore'
 import { firestore } from '../firebase.config'
 
@@ -49,12 +42,13 @@ const SignUpPage = () => {
 					displayName: firstName,
 				})
 				console.log(userCredential.user.uid)
+				
 
 				addDoc(collection(firestore, 'users'), {
 					username: userCredential.user.displayName,
 					photo: userCredential.user.photoURL,
 					email: userCredential.user.email,
-				})
+				}).then()
 
 				navigate('/signin')
 			})
@@ -65,12 +59,6 @@ const SignUpPage = () => {
 				setError(error.message)
 			})
 
-		// console.log(userInfo)
-		// await addDoc(collection(firestore, 'users'), {
-		// 	username: userInfo.user.displayName,
-		// 	photo: userInfo.user.photoURL,
-		// 	email: userInfo.user.email,
-		// })
 	}
 
 	const signInGoogle = async () => {
@@ -82,7 +70,7 @@ const SignUpPage = () => {
 			photo: response.user.photoURL,
 			email: response.user.email,
 		})
-		console.log(response)
+		// console.log(response)
 	}
 
 	return (
