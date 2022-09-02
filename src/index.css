@@ -56,6 +56,10 @@ h6 {
     width: 5px;
     background-color: #fff;
 }
+::-webkit-scrollbar:hover {
+    width: 10px;
+    /* background-color: #fff; */
+}
 
 ::-webkit-scrollbar-thumb {
     width: 5px;
@@ -65,6 +69,8 @@ h6 {
 
 ::-webkit-scrollbar-thumb:hover {
     background-color: #F25252;
+    width: 10px;
+
 }
 
 .img-container::before {
