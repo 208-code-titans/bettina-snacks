@@ -235,7 +235,7 @@ const DashboardAdd = () => {
 	
 
 	return (
-		<div className='flex flex-col 2xl:flex-row w-full 2xl:w-[70%] max-h-screen xl:max-h-[70vh] md:px-10 md:py-8'>
+		<div className='flex flex-col mx-auto 2xl:flex-row w-full 2xl:w-[70%] max-h-screen xl:max-h-[70vh] md:px-10 md:py-8'>
 			<div
 				className='w-full  m-h-[25rem] bg-cover bg-top bg-no-repeat flex md:rounded-3xl overflow-hidden'
 				style={{ backgroundImage: `url(${strawberryCake})` }}

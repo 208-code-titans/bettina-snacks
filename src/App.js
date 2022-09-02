@@ -6,6 +6,7 @@ import {
 	MenuPage,
 	SignInPage,
 	SignUpPage,
+	InvoicesPage
 } from './pages/pages'
 import { Routes, Route } from 'react-router-dom'
 import {
@@ -16,6 +17,7 @@ import {
 	SIGN_UP,
 	SIGN_IN,
 	DASHBOARD,
+	INVOICES,
 } from './constants/routes'
 import { AnimatePresence } from 'framer-motion'
 import { Header, CartContainer } from './components/components'
@@ -38,6 +40,7 @@ function App() {
 				<Route path={SIGN_IN} element={<SignInPage />} />
 				<Route path={SIGN_UP} element={<SignUpPage />} />
 				<Route path={DASHBOARD} element={<DashboardPage />} />
+				<Route path={INVOICES} element={<InvoicesPage />} />
 			</Routes>
 			{
 				// render cart if cart is true

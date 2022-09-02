@@ -105,33 +105,6 @@ const CartContainer = () => {
 		setHasPaid(false)
 	}
 
-	const checkout = () => {
-		// Get verification code
-
-		// Get verification function
-
-		// Callback from verification
-
-		setHasPaid(true)
-		// createOrder()
-		// if (hasPaid === true) {
-		// 	console.log("Creating order ....")
-
-		// 	console.log(user.uid)
-		// console.log(user.displayName)
-		// console.log(user.photoURL)
-		// console.log(user.email)
-		// console.log(tot * 100)
-		// console.log(cartItems)
-		// }
-
-		hasPaid ? alert('Creating order') : alert("You haven't paid")
-
-		clearCart()
-		showCart()
-		console.log('you have checked out')
-	}
-
 	const initializePay = usePaystackPayment(paystackConfig)
 
 	return (
