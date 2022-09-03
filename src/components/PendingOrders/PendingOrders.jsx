@@ -34,7 +34,7 @@ const PendingOrders = () => {
 				setPendingOrders(snapshot.docs)
 				console.log(snapshot.docs)
 				pendingOrders.map((item, index) => {
-					setOrderDetails([item.data().orderDetails])
+					setOrderDetails(item.data().orderDetails)
 					// console.log(orderDetails)
 				})
 			}
@@ -68,9 +68,9 @@ const PendingOrders = () => {
 										</p>
 									</div>
 									<p className='text-xs text-gray-600'>
-										{orderDetails &&
-											orderDetails.map((order, index) => (
-												<p key={index}>hello</p>
+										{item.data().orderDetails &&
+											item.data().orderDetails.map((order, index) => (
+												<p key={index}>{ order?.name}</p>
 											))}
 									</p>
 								</div>
