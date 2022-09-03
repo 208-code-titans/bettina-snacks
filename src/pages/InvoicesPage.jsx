@@ -15,10 +15,17 @@ import {
 	getDocs,
 	serverTimestamp,
 } from '@firebase/firestore'
+import { useStateValue } from '../context/StateProvider'
+import { actionType } from '../context/reducer'
 
 const InvoicesPage = () => {
-	const [orders, setOrders] = useState([])
-	const [id, setId] = useState('')
+
+  const [orders, setOrders] = useState([])
+  const [orderDetails, setOrderDetails] = useState([])
+  
+  const [id, setId] = useState('')
+  const [{ user }, dispatch] = useStateValue()
+
 
 	const dbRef = collection(firestore, 'users')
 	// console.log(dbRef)
@@ -27,54 +34,74 @@ const InvoicesPage = () => {
 		snapshot.docs.map((snap) => {
 			setId(snap.id)
 		})
-	})
+  })
+  
 
 	const docsSnap = getDocs(dbRef)
 
-	//   docsSnap.forEach(doc => {
-	//     console.log(doc.data());
-	// })
-
-	// useEffect(() => {
-	// 	// Query posts by server timestamp
-	// 	docsSnap.forEach((doc) => {
-	// 		console.log(doc.data())
-	// 	})
-	// }, [firestore])
 
 	useEffect(() => {
 		// Query posts by server timestamp
 		return onSnapshot(
-			query(collection(firestore, 'allOrders'), orderBy('timestamp', 'desc')),
+			query(collection(firestore, 'users', 'email', user.email ), orderBy('timestamp', 'desc')),
 			(snapshot) => {
-				setOrders(snapshot.docs)
-				console.log(snapshot.docs)
+        setOrders(snapshot.docs)
+        
+        // console.log(snapshot.docs.data())
+        orders.map((item, index) => {
+					setOrderDetails(item.data().orderDetails)
+					// console.log(orderDetails)
+				})
+        
 			}
 		)
-	  }, [firestore])
+  }, [firestore])
+  
+  // console.log(orders);
 
 	return (
 		<div className='pt-[67px] md:pt[67px] w-screen h-screen overflow-x-hidden bg-gray-100'>
 			<div className='mx-auto w-full max-w-sm lg:max-w-5xl mt-4 py-4 px-6 flex flex-col gap-2'>
 				<LandingSubHeading title={'Your '} span={'Orders'} />
-				{/* Large Screens */}
-				<div className='flex flex-col gap-3'>
-					<div className='gap-4 hidden lg:flex bg-white w-full px-6 py-4 justify-between items-center rounded-xl shadow-sm'>
-						<div className='flex gap-3 items-center '>
-							<div className='bg-gray-200 rounded-full p-2'>
-								<GiCupcake className='text-3xl text-red-500 ' />
-							</div>
-							<p className='uppercase font-bold text-gray-600'>
-								RockCakes
-							</p>
-						</div>
-						<div>GHC80</div>
-						<div className='flex gap-2 items-center text-gray-500 capitalize'>
-							<BiRadioCircleMarked className='text-2xl' />
-							Pending
-						</div>
-						<div className='text-sm'>Aug 5, 2022</div>
-					</div>
+        {/* Large Screens */}
+        
+        <div className='flex flex-col gap-3'>
+          {
+            orders && orders.map((item) => (
+
+              <div className='gap-4 hidden lg:flex bg-white w-full px-6 py-4 justify-between items-center rounded-xl shadow-sm'>
+              <div className='flex gap-3 items-center '>
+                <div className='bg-gray-200 rounded-full p-2'>
+                  <GiCupcake className='text-3xl text-red-500 ' />
+                </div>
+                <p className='uppercase font-bold text-gray-600'>
+                {item.data().orderDetails &&
+											item.data().orderDetails.map((order, index) => (
+                        <div key={index}>
+                          <p >{ order?.name}</p>
+
+                        </div>
+											))}
+                </p>
+              </div>
+                <div>
+                {item.data().orderDetails &&
+											item.data().orderDetails.map((order, index) => (
+                        <div key={index}>
+                          <p >GHC{ order?.price}</p>
+
+                        </div>
+											))}
+              </div>
+              <div className='flex gap-2 items-center text-gray-500 capitalize'>
+                <BiRadioCircleMarked className='text-2xl' />
+                Pending
+              </div>
+              <div className='text-sm'></div>
+            </div>
+            ))
+          }
+					
 
 					{/* Mobile screens */}
 					<div className='gap-4 lg:hidden flex bg-white flex-col rounded-2xl shadow-sm px-4 py-3'>
