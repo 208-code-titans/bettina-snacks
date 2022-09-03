@@ -44,7 +44,7 @@ const SignUpPage = () => {
 				console.log(userCredential.user.uid)
 				
 
-				addDoc(collection(firestore, 'users'), {
+				addDoc(collection(firestore, 'users', "email", userCredential.user.email), {
 					username: userCredential.user.displayName,
 					photo: userCredential.user.photoURL,
 					email: userCredential.user.email,
@@ -65,7 +65,7 @@ const SignUpPage = () => {
 		// console.log("Signed In with google")
 		const response = await signInWithPopup(auth, provider)
 
-		addDoc(collection(firestore, 'users'), {
+		addDoc(collection(firestore, 'users', response.user.email ), {
 			username: response.user.displayName,
 			photo: response.user.photoURL,
 			email: response.user.email,
