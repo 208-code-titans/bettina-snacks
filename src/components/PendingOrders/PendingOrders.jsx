@@ -15,14 +15,18 @@ import {
 } from '@firebase/firestore'
 import { firestore } from '../../firebase.config'
 import { useEffect } from 'react'
+import { Loader } from '../components'
+import { FaThList } from 'react-icons/fa'
 
 // import { pendingOrders } from '../../fixtures/data'
 
 const PendingOrders = () => {
 	const [pendingOrders, setPendingOrders] = useState([])
+	const [loading, setLoading] = useState(false)
 	const [orderDetails, setOrderDetails] = useState([])
 
 	useEffect(() => {
+		setLoading(true)
 		// Query posts by server timestamp
 		return onSnapshot(
 			query(
@@ -37,6 +41,7 @@ const PendingOrders = () => {
 					setOrderDetails(item.data().orderDetails)
 					// console.log(orderDetails)
 				})
+				setLoading(false)
 			}
 		)
 	}, [firestore])
@@ -45,7 +50,18 @@ const PendingOrders = () => {
 	return (
 		<div className='w-full mx-auto md:w-[80%] flex flex-col px-6 mt-7 max-h-screen'>
 			<h1 className='text-4xl text-red-500 mb-auto'>Pending Orders</h1>
-			<ul className='flex flex-col overflow-auto pr-4'>
+			{
+				loading ? (
+					<>
+					<div className='flex w-full items-center justify-center'>
+						<Loader />
+					</div>
+				</>
+				) : (
+						<>
+							{
+								pendingOrders && pendingOrders.length > 0 ? (
+									<ul className='flex flex-col overflow-auto pr-4'>
 				{pendingOrders &&
 					pendingOrders.map((item, index) => (
 						<li className='border-b border-gray-400 py-2 w-full'>
@@ -54,7 +70,8 @@ const PendingOrders = () => {
 								key={index}
 							>
 								<img
-									src={item.data().userImage}
+									// TODO: dynamic image
+									src={item.data()?.userImage}
 									alt=''
 									className='w-[70px] h-[70px] object-cover rounded-[50%]'
 								/>
@@ -67,12 +84,12 @@ const PendingOrders = () => {
 											{item.data().userEmail}
 										</p>
 									</div>
-									<p className='text-xs text-gray-600'>
+									
 										{item.data().orderDetails &&
 											item.data().orderDetails.map((order, index) => (
-												<p key={index}>{ order?.name}</p>
+												<p key={index} className='text-xs text-gray-600'>{ order?.name}</p>
 											))}
-									</p>
+									
 								</div>
 							</div>
 							<div className='w-full pt-3'>
@@ -90,7 +107,22 @@ const PendingOrders = () => {
 							</div>
 						</li>
 					))}
-			</ul>
+							</ul>
+								) : (
+									<div className='w-full h-full text-center flex flex-col gap-3 items-center justify-center'>
+									<FaThList className='text-6xl text-red-500' />
+									<p className='text-sm font-semibold text-gray-600'>
+									  Hey there, you have nothing in your pending orders list!{' '}
+									  <br /> You will see some orders when customers place orders
+									</p>
+								  </div>
+								)
+							}
+					
+							</>
+				)
+			}
+			
 		</div>
 	)
 }
