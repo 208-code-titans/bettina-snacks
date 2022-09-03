@@ -321,7 +321,7 @@ const DashboardAdd = () => {
 								</div>
 							</div>
 						</div>
-						<div className=' group rounded-xl w-[250px] h-[270px] flex items-center justify-center flex-col gap-3 border border-red-400 cursor-pointer '>
+						<div className=' group rounded-xl w-full  md:w-[250px] h-[270px] flex items-center justify-center flex-col gap-3 border border-red-400 cursor-pointer '>
 							{loading ? (
 								<Loader />
 							) : (
