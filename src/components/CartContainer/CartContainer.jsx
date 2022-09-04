@@ -10,12 +10,7 @@ import { useState, useEffect } from 'react'
 import { usePaystackPayment } from 'react-paystack'
 import {
 	addDoc,
-	setDoc,
-	doc,
-	getDoc,
-	getDocs,
 	collection,
-	onSnapshot,
 	serverTimestamp,
 } from '@firebase/firestore'
 import { firestore } from '../../firebase.config'
@@ -25,16 +20,6 @@ const CartContainer = () => {
 	const [{ user, cartShow, cartItems }, dispatch] = useStateValue()
 	const [flag, setFlag] = useState(1)
 	const [tot, setTot] = useState(0)
-	const [hasPaid, setHasPaid] = useState(false)
-	const [id, setId] = useState('')
-	const dbRef = collection(firestore, 'users')
-	// console.log(dbRef)
-	
-	onSnapshot(dbRef, (snapshot) => {
-		snapshot.docs.map((snap) => {
-			setId(snap.id)
-		})
-	})
 
 	const showCart = () => {
 		dispatch({
@@ -62,12 +47,6 @@ const CartContainer = () => {
 
 	const createOrder = async () => {
 		try {
-			await addDoc(collection(firestore, 'users', 'email', user.email), {
-				orderDetails: cartItems,
-				completionStatus: 'pending',
-				price: tot,
-				timestamp: serverTimestamp(),
-			})
 			await addDoc(collection(firestore, 'allOrders'), {
 				username: user.displayName,
 				userImage: user.photoURL,
@@ -91,18 +70,14 @@ const CartContainer = () => {
 	}
 
 	const onSuccess = () => {
-		console.log('Payment Succeeded')
-
 		createOrder()
 
 		clearCart()
 		showCart()
-		console.log('you have checked out')
 	}
 
 	const onClose = () => {
 		console.log('Payment Failed')
-		setHasPaid(false)
 	}
 
 	const initializePay = usePaystackPayment(paystackConfig)
