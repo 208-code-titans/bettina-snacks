@@ -8,7 +8,8 @@ export { default as Cart} from './Cart/Cart'
 export { default as Order} from './Order/Order'
 export { default as CartContainer} from './CartContainer/CartContainer'
 export { default as LandingSubHeading } from './LandingSubHeading/LandingSubHeading'
-
+export { default as ProtectedRoute} from './ProtectedRoute'
+export { default as ProtectedAdmin} from './ProtectedAdmin'
 
 
 // Home Page
