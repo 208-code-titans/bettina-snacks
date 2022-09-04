@@ -3,6 +3,10 @@ import { reviews } from '../../fixtures/data'
 import { FaChevronLeft, FaChevronRight, FaQuoteRight } from 'react-icons/fa'
 import { motion } from 'framer-motion'
 import { homeTestimonials } from '../images'
+import Aos from 'aos';
+import 'aos/dist/aos.css';
+import { useEffect } from 'react';
+
 
 const HomeTestimonials = () => {
 	const [index, setIndex] = useState(0)
@@ -28,8 +32,13 @@ const HomeTestimonials = () => {
 			return checkNumber(newIndex)
 		})
 	}
+
+	useEffect(() => { 
+		Aos.init({duration:2000});
+	Aos.refresh();
+		},[]);
 	return (
-		<div className='w-screen h-screen flex items-center justify-center bg-cover' style={{ backgroundImage: `url(${homeTestimonials})` }}>
+		<div data-aos="zoom-in" className='w-screen h-screen flex items-center justify-center bg-cover' style={{ backgroundImage: `url(${homeTestimonials})` }}>
 			<div className='bg-gray-50 w-[80vw] max-w-[620px] shadow-xl rounded-3xl py-6 px-8 text-center'>
 				<div className='relative w-150 h-150 rounded-full mb-6 my-0 mx-auto before:w-full before:h-full before:bg-red-400 before:absolute before:-top-1 before:-right-2 before:rounded-full '>
 					<img
