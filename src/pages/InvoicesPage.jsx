@@ -94,23 +94,14 @@ const InvoicesPage = () => {
 														)}
 											</div>
 											<div>
-												{item.data().orderDetails &&
-													item
-														.data()
-														.orderDetails.map(
-															(order, index) => (
-																<div
-																	key={index}
-																>
+												
 																	<p className='font-bold text-gray-600'>
 																		GHC
 																		{
-																			order?.price
+																			item.data().price
 																		}
 																	</p>
-																</div>
-															)
-														)}
+																
 											</div>
 											<div>
 												{item.data().orderDetails &&
@@ -198,23 +189,14 @@ const InvoicesPage = () => {
 																)
 															)}
 												</div>
-												{item.data().orderDetails &&
-													item
-														.data()
-														.orderDetails.map(
-															(order, index) => (
-																<div
-																	key={index}
-																>
+												
 																	<p className='font-bold text-gray-600 text-sm'>
 																		GHC
 																		{
-																			order?.price
+																			item.data().price
 																		}
 																	</p>
-																</div>
-															)
-														)}
+																
 											</div>
 											<div className='flex items-center ml-auto text-sm gap-6 capitalize'>
 												<div
