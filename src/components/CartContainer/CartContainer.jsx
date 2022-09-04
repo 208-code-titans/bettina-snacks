@@ -62,7 +62,7 @@ const CartContainer = () => {
 
 	const createOrder = async () => {
 		try {
-			await addDoc(collection(firestore, 'users', id, 'orders'), {
+			await addDoc(collection(firestore, 'users', 'email', user.email), {
 				orderDetails: cartItems,
 				completionStatus: 'pending',
 				price: tot,

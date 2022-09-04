@@ -38,4 +38,6 @@ export { default as ContactQuote } from './ContactQuote/ContactQuote'
 // Dashboard Page
 export { default as DashboardAdd} from './DashboardAdd/DashboardAdd'
 export { default as PendingOrders} from './PendingOrders/PendingOrders'
+export { default as OngoingOrders} from './OngoingOrders/OngoingOrders'
+export { default as DeclinedOrders} from './DeclinedOrders/DeclinedOrders'
 
