@@ -1,7 +1,9 @@
 import React from 'react'
 import { DashboardAdd, PendingOrders, OngoingOrders, DeclinedOrders } from '../components/components'
 
+
 const DashboardPage = () => {
+	
 	return (
 		<div className='pt-[67px] md:pt[67px] w-screen min-h-screen mb-12'>
 			<div className='flex flex-col xl:flex-row justify-center max-h-screen'>
