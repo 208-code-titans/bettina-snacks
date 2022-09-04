@@ -29,6 +29,7 @@ const PendingOrders = () => {
 	const [loading, setLoading] = useState(false)
 	const [orderDetails, setOrderDetails] = useState([])
 	const [idenfier, setIdentifier] = useState('')
+	const [ userEmail, setUserEmail] = useState('')
 
 	const [{ user }] = useStateValue()
 	// const docRef = collection(firestore, 'allOrders')
@@ -45,39 +46,36 @@ const PendingOrders = () => {
 			),
 			(snapshot) => {
 				setPendingOrders(snapshot.docs)
-				// console.log(snapshot.docs)
 				pendingOrders.map((item, index) => {
 					setOrderDetails(item.data().orderDetails)
-					// console.log(item.id)
-					// setIdentifier(item.id)
-					// console.log(orderDetails)
+					console.log(item.data().userEmail)
 				})
 				setLoading(false)
 			}
 		)
 	}, [firestore])
 
-	useEffect(() => {
-		setLoading(true)
-		// Query posts by server timestamp
-		return onSnapshot(
-			query(
-				collection(firestore, 'users', 'email', user.email),
-				where('completionStatus', '==', 'pending')
-				// orderBy('timestamp', 'desc')
-			),
-			(snapshot) => {
-				setUserPendingOrders(snapshot.docs)
-				pendingUserOrders.map((item, index) => {
-					// setOrderDetails(item.data().orderDetails)
-					// console.log(item.id)
-				setIdentifier(item.id)
-					// console.log(orderDetails)
-				})
-				setLoading(false)
-			}
-		)
-	}, [firestore])
+	// useEffect(() => {
+	// 	setLoading(true)
+	// 	// Query posts by server timestamp
+	// 	return onSnapshot(
+	// 		query(
+	// 			collection(firestore, 'users', 'email', userEmail),
+	// 			where('completionStatus', '==', 'pending')
+	// 			// orderBy('timestamp', 'desc')
+	// 		),
+	// 		(snapshot) => {
+	// 			setUserPendingOrders(snapshot.docs)
+	// 			// pendingUserOrders.map((item, index) => {
+	// 				// setOrderDetails(item.data().orderDetails)
+	// 				// console.log(item.id)
+	// 			// setIdentifier(item.id)
+	// 				// console.log(orderDetails)
+	// 			// })
+	// 			setLoading(false)
+	// 		}
+	// 	)
+	// }, [firestore])
 	// console.log(idenfier)
 	// console.log(orderDetails)
 
@@ -107,7 +105,7 @@ const PendingOrders = () => {
 	}
 
 	return (
-		<div className='w-full mx-auto md:w-[80%] flex flex-col px-6 mt-7 max-h-[70vh]'>
+		<div className='w-full mx-auto h-full md:w-[80%] flex flex-col px-6 mt-7 max-h-[70vh]'>
 			<h1 className='text-4xl text-red-500 mb-auto'>Pending Orders</h1>
 			{/* {pendingUserOrders &&
 				pendingUserOrders.map((item) => setIdentifier(item.id))
@@ -178,19 +176,22 @@ const PendingOrders = () => {
 											<div className='flex gap-4 ml-auto '>
 												<button
 													className='ml-auto bg-emerald-500 text-white px-4 py-1 shadow-lg rounded-lg'
-													onClick={() =>
+													onClick={() => {
+														setIdentifier(item.data().userEmail)
 														confirmOrder(
 															item.id,
 															idenfier
 														)
+
+													}
 													}
 												>
 													Confirm
 												</button>
 												<button
 													className=' bg-red-500 text-white px-4 py-1 shadow-lg rounded-lg'
-													onClick={() =>
-														declineOrder(item.id, idenfier)
+													onClick={() =>{
+														declineOrder(item.id, idenfier)}
 													}
 												>
 													Decline
@@ -201,7 +202,7 @@ const PendingOrders = () => {
 								))}
 						</ul>
 					) : (
-						<div className='w-full h-full text-center flex flex-col gap-3 items-center justify-center'>
+						<div className='w-full h-screen text-center flex flex-col gap-3 items-center justify-center'>
 							<FaThList className='text-6xl text-red-500' />
 							<p className='text-sm font-semibold text-gray-600'>
 								Hey there, you have nothing in your pending
