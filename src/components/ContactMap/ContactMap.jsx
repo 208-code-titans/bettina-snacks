@@ -1,7 +1,9 @@
 import React from 'react'
 import { LandingSubHeading } from '../components'
 
+
 const ContactMap = () => {
+	
 	return (
 		<div className='mt-8 py-10 w-full'>
 			<div className='mx-auto max-w-[90%] md:max-w-[86%] lg:max-w-6xl '>

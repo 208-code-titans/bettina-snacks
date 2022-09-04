@@ -1,10 +1,18 @@
 import React from 'react'
 import { aboutdeco2, bg } from "../images"
+import Aos from 'aos';
+import 'aos/dist/aos.css';
+import { useEffect } from 'react';
 
 
 const AboutAbout = () => {
+  useEffect(() => { 
+		Aos.init({duration:2000});
+	Aos.refresh();
+		},[]);
+  
   return (
-    <div className='text-center mb-8 border-none h-[80vh] flex items-center justify-center text-white bg-cover' style={{ backgroundImage: `url(${bg})` }}>
+    <div data-aos='fade-right' className='text-center mb-8 border-none h-[80vh] flex items-center justify-center text-white bg-cover' style={{ backgroundImage: `url(${bg})` }}>
       <div className=' mx-auto flex flex-col gap-9'>
         <h1 className='text-7xl uppercase'>ABO<span className='text-red-600'>UT</span></h1>
 
