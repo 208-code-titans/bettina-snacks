@@ -7,16 +7,9 @@ import {
 	onSnapshot,
 	collection,
 	query,
-	orderBy,
-	addDoc,
-	setDoc,
-	doc,
-	getDoc,
-	getDocs,
-	serverTimestamp,
+	where,
 } from '@firebase/firestore'
 import { useStateValue } from '../context/StateProvider'
-import { actionType } from '../context/reducer'
 import { BsCart3 } from 'react-icons/bs'
 
 const InvoicesPage = () => {
@@ -24,7 +17,7 @@ const InvoicesPage = () => {
 	const [orderDetails, setOrderDetails] = useState([])
 	const [loading, setLoading] = useState(false)
 
-	const [{ user }, dispatch] = useStateValue()
+	const [{ user }] = useStateValue()
 
 	useEffect(() => {
 		setLoading(true)
@@ -32,23 +25,19 @@ const InvoicesPage = () => {
 		// Query posts by server timestamp
 		return onSnapshot(
 			query(
-				collection(firestore, 'users', 'email', user.email),
-				orderBy('timestamp', 'desc')
+				collection(firestore, 'allOrders'),
+				where('userEmail', '==', user.email)
 			),
 			(snapshot) => {
 				setOrders(snapshot.docs)
 
-				// console.log(snapshot.docs.data())
 				orders.map((item, index) => {
 					setOrderDetails(item.data().orderDetails)
-					// console.log(orderDetails)
 				})
 				setLoading(false)
 			}
 		)
 	}, [firestore])
-
-	// console.log(orders);
 
 	return (
 		<div className='pt-[67px] md:pt[67px] w-screen h-screen overflow-x-hidden bg-gray-100'>
