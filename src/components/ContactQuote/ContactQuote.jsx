@@ -1,8 +1,6 @@
 import React from 'react'
 import Slider from "react-slick";
-import Aos from 'aos';
-import 'aos/dist/aos.css';
-import { useEffect } from 'react';
+
 
 const cardData = [
   {

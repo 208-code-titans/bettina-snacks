@@ -3,10 +3,17 @@ import React from 'react'
 import { LandingSubHeading, Button } from '../components'
 import { exploreData } from '../../fixtures/menuData'
 import { BsCartPlus } from 'react-icons/bs'
+import Aos from 'aos';
+import 'aos/dist/aos.css';
+import { useEffect } from 'react';
 
 const HomeExplore = () => {
+	useEffect(() => { 
+		Aos.init({duration:2000});
+	Aos.refresh();
+		},[]);
 	return (
-		<div className='p-8 md:p-16 flex flex-col'>
+		<div data-aos='fade-right' className='p-8 md:p-16 flex flex-col'>
 			<div className='flex flex-col md:flex-row items-center md:items-start justify-center md:justify-between'>
 				<LandingSubHeading title={'Explore Our'} span={'Menu'} />
 				<Button route={'/menu'} text={'Explore'} />
