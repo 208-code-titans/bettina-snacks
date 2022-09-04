@@ -1,5 +1,5 @@
 import React from 'react'
-import { aboutdeco2, bg } from "../images"
+import { bg } from "../images"
 
 
 const AboutAbout = () => {
@@ -9,13 +9,11 @@ const AboutAbout = () => {
         <h1 className='text-7xl uppercase'>ABO<span className='text-red-600'>UT</span></h1>
 
         <p className='max-w-4xl text-center mx-auto '>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          In ut vehicula erat. Nunc varius augue nisi, sed egestas mauris molestie at.
-          Donec sed purus porta, auctor purus a, volutpat nulla. Pellentesque a finibus ligula, vitae sagittis nibh.
-          In fermentum, urna ac vulputate convallis, dolor dui ullamcorper lacus, non aliquam libero eros a dolor.
-          Mauris quis urna imperdiet, sagittis massa eget, malesuada neque. Vivamus non est nisi.
-          Nullam congue odio vel accumsan rutrum. Ut lobortis quam et sem tristique accumsan.
-          Nullam aliquet tincidunt libero et sollicitudin.
+        Bettina Snacks is an all Ghanaian Bakery which offers high quality snacks with the finest ingredients. 
+        Since the 1970s, Bettina snacks has delivered the best of the best, which was owned by Bettina, who then passed
+        it on the her daughter, the current manager. The young and older generation are our focus since our products are 
+        nourished with their health in mind. Ingredients are carefully combined in order to minimize the risk any ailments
+        as customers enjoy their rich snacks.  
         </p>
       </div>
     </div>
