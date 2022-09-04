@@ -2,7 +2,6 @@ import { motion } from 'framer-motion'
 import React from 'react'
 import { LandingSubHeading, Button } from '../components'
 import { exploreData } from '../../fixtures/menuData'
-import { BsCartPlus } from 'react-icons/bs'
 import Aos from 'aos';
 import 'aos/dist/aos.css';
 import { useEffect } from 'react';
@@ -18,12 +17,12 @@ const HomeExplore = () => {
 				<LandingSubHeading title={'Explore Our'} span={'Menu'} />
 				<Button route={'/menu'} text={'Explore'} />
 			</div>
-			<div className='px-20 py-8 grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-10'>
+			<div className='py-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-10 w-full'>
 				{exploreData &&
 					exploreData.map((item) => (
 						<div
 							key={item.id}
-							className='h-[320px] object-cover bg-contain bg-no-repeat rounded-3xl relative shadow-2xl'
+							className='h-[320px] object-cover bg-cover bg-bottom bg-no-repeat rounded-3xl relative shadow-2xl'
 							style={{ backgroundImage: `url(${item.img})` }}
 						>
 							<div className='bg-white inline-block absolute top-4 px-2 shadow-xl rounded-full right-3 font-bold text-red-500'>
