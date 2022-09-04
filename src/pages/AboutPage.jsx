@@ -1,5 +1,5 @@
 import React from 'react'
-import { AboutLanding, AboutHistory, AboutAbout, AboutEvent, Footer} from '../components/components'
+import { AboutLanding, AboutHistory, AboutAbout, Footer} from '../components/components'
 
 const AboutPage = () => {
   return (
@@ -7,7 +7,6 @@ const AboutPage = () => {
       <AboutLanding />
       <AboutHistory />
       <AboutAbout />
-      {/* <AboutEvent /> */}
       <Footer />
     </div>
   )

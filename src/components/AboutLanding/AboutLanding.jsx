@@ -14,7 +14,7 @@ const AboutLanding = () => {
 					title={'About Bettina'}
 					span={'Snacks'}
 					subtitle={
-						'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim officiis fugit laboriosam molestias, illo id itaque voluptatem animi quisquam perspiciatis! Ad eveniet ut sunt aspernatur quidem ducimus in, delectus similique?'
+						'We present the history and all need to know about Bettina Snacks. Since the 1900s till today.'
 					}
 				/>
 			</div>
