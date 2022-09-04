@@ -5,7 +5,6 @@ import {
 	uploadBytesResumable,
 	deleteObject,
 } from 'firebase/storage'
-import axios from 'axios'
 import { storage } from '../../firebase.config'
 import { motion } from 'framer-motion'
 import { strawberryCake } from '../images'
@@ -17,10 +16,7 @@ import {
 	MdDelete,
 } from 'react-icons/md'
 import { Loader } from '../components'
-import {
-	addDoc,
-	collection,
-} from '@firebase/firestore'
+import { addDoc, collection } from '@firebase/firestore'
 import { firestore } from '../../firebase.config'
 
 const DashboardAdd = () => {
@@ -101,90 +97,6 @@ const DashboardAdd = () => {
 		})
 	}
 
-	// Add Product to MongoDB Database
-	const addProduct = () => {
-		setLoading(true)
-		try {
-			if (!name || !price || !tag || !category || !productImage) {
-				setFields(true)
-				setMessage("Required fields can't be empty")
-				setAlertStatus('danger')
-				setTimeout(() => {
-					setFields(false)
-					setLoading(false)
-				}, 4000)
-				clearData()
-			} else {
-				const data = {
-					name: name,
-					photo: productImage,
-					tag: tag,
-					category: category,
-					slug: slug,
-					price: price,
-				}
-				// console.table(data)
-				// const jsonData = JSON.stringify(data)
-				// console.log(jsonData)
-				// try {
-				// 	const result = await axios.create({
-				// 		url: process.env.REACT_APP_API_BASE_URL + '/products',
-				// 		method: 'post',
-				// 		data: data,
-				// 	})
-				// 	console.log(result)
-					// setFields(true)
-					// setMessage('Product added successfully!')
-					// setAlertStatus('success')
-					// setTimeout(() => {
-					// 	setFields(false)
-					// }, 4000)
-				// } catch (error) {
-				// 	console.log(error)
-				// 	setFields(true)
-				// 	setMessage('Error accessing database. Try Again!')
-				// 	setAlertStatus('danger')
-				// 	setTimeout(() => {
-				// 		setFields(false)
-				// 		setLoading(false)
-				// 	}, 4000)
-				// }
-				fetch(process.env.REACT_APP_API_BASE_URL + '/products', {
-					method: 'POST', // or 'PUT'
-					headers: {
-					  'Content-Type': 'application/json',
-					},
-					body: JSON.stringify(data),
-				  })
-				  .then((response) => response.json())
-				  .then((data) => {
-					  console.log('Success:', data);
-					  setFields(true)
-					  setMessage('Product added successfully!')
-					  setAlertStatus('success')
-					  setLoading(false)
-					  setTimeout(() => {
-						  setFields(false)
-					  }, 4000)
-					  clearData()
-				  })
-				  .catch((error) => {
-					console.error('Error:', error);
-				  })
-			}
-		} catch (error) {
-			console.log(error)
-			setFields(true)
-			setMessage('Error while uploading. Try Again!')
-			setAlertStatus('danger')
-			setTimeout(() => {
-				setFields(false)
-				setLoading(false)
-			}, 4000)
-			clearData()
-		}
-	}
-
 	// Add Product to Firebase
 	const pushProduct = async () => {
 		setLoading(true)
@@ -199,7 +111,6 @@ const DashboardAdd = () => {
 				}, 4000)
 				clearData()
 			} else {
-				
 				await addDoc(collection(firestore, 'products'), {
 					name: name,
 					photo: productImage,
@@ -210,7 +121,7 @@ const DashboardAdd = () => {
 					qty: 1,
 				})
 				setFields(true)
-				setMessage("Success")
+				setMessage('Success')
 				setAlertStatus('success')
 				setTimeout(() => {
 					setFields(false)
@@ -218,7 +129,6 @@ const DashboardAdd = () => {
 				}, 4000)
 				clearData()
 			}
-			
 		} catch (error) {
 			console.log(error)
 			setFields(true)
@@ -231,8 +141,6 @@ const DashboardAdd = () => {
 			clearData()
 		}
 	}
-
-	
 
 	return (
 		<div className='flex flex-col mx-auto 2xl:flex-row w-full 2xl:w-[70%] h-full max-h-screen xl:max-h-[70vh] md:px-10 md:py-8'>
@@ -376,7 +284,6 @@ const DashboardAdd = () => {
 					</button>
 				</div>
 			</div>
-			
 		</div>
 	)
 }
