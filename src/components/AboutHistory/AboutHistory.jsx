@@ -1,10 +1,16 @@
 import React from 'react'
 import { aboutdeco1 } from '../images'
-
+import Aos from 'aos';
+import 'aos/dist/aos.css';
+import { useEffect } from 'react';
 
 const AboutHistory = () => {
+  useEffect(() => { 
+    Aos.init({duration:2000});
+Aos.refresh();
+    },[]);
   return (
-    <div className='text-center mx-[200px] pb-[300px] pt-[150px] relative flex flex-col gap-9 '>
+    <div data-aos='fade-left'className='text-center mx-[200px] pb-[300px] pt-[150px] relative flex flex-col gap-9 '>
       <div className='absolute -top-40 -right-[13.1rem] '>
       <img className='w-[300px]'alt = 'decorative strawberries' src={aboutdeco1} />
       </div>

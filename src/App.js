@@ -6,8 +6,9 @@ import {
 	MenuPage,
 	SignInPage,
 	SignUpPage,
+	InvoicesPage,
 } from './pages/pages'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import {
 	HOME,
 	ABOUT,
@@ -16,16 +17,22 @@ import {
 	SIGN_UP,
 	SIGN_IN,
 	DASHBOARD,
+	INVOICES,
 } from './constants/routes'
 import { AnimatePresence } from 'framer-motion'
-import { Header, CartContainer } from './components/components'
+import {
+	Header,
+	CartContainer,
+	ProtectedAdmin,
+	ProtectedRoute,
+} from './components/components'
 import { useStateValue } from './context/StateProvider'
-import { useEffect} from 'react'
+import { useEffect } from 'react'
 
 function App() {
-	const [{ cartShow }, dispatch] = useStateValue()
-	
-	useEffect(()=> {}, [cartShow])
+	const [{ user, cartShow }, dispatch] = useStateValue()
+
+	useEffect(() => {}, [cartShow])
 	return (
 		<AnimatePresence exitBeforeEnter>
 			<Header />
@@ -37,15 +44,28 @@ function App() {
 				<Route path={CONTACT} element={<ContactPage />} />
 				<Route path={SIGN_IN} element={<SignInPage />} />
 				<Route path={SIGN_UP} element={<SignUpPage />} />
-				<Route path={DASHBOARD} element={<DashboardPage />} />
+				<Route
+					path={DASHBOARD}
+					element={
+						<ProtectedAdmin user={user}>
+							<DashboardPage />
+						</ProtectedAdmin>
+					}
+				/>
+				<Route
+					path={INVOICES}
+					element={
+						<ProtectedRoute user={user}>
+							<InvoicesPage />
+						</ProtectedRoute>
+					}
+				/>
+				<Route path="*" element={<Navigate to={HOME} />} />
 			</Routes>
 			{
 				// render cart if cart is true
-				cartShow && (
-					<CartContainer />
-				)
+				cartShow && <CartContainer />
 			}
-			
 		</AnimatePresence>
 	)
 }

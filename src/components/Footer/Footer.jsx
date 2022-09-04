@@ -5,6 +5,7 @@ import { BsWhatsapp } from 'react-icons/bs'
 import { FaFacebookF, FaInstagram } from 'react-icons/fa'
 
 const Footer = () => {
+
 	return (
 		<footer className='bg-gray-50 text-black border-t-2 border-red-50 shadow-sm w-screen overflow-x-hidden'>
 			<div className='flex flex-col md:justify-between md:items-center  bg-[#ffffff19] py-7'>

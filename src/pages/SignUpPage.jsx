@@ -1,7 +1,12 @@
-import React, { useState} from 'react'
-import { Link } from 'react-router-dom'
-import { signInWithPopup, createUserWithEmailAndPassword, GoogleAuthProvider, updateProfile } from "firebase/auth";
-import { auth } from '../firebase.config';
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import {
+	signInWithPopup,
+	createUserWithEmailAndPassword,
+	GoogleAuthProvider,
+	updateProfile,
+} from 'firebase/auth'
+import { auth } from '../firebase.config'
 import { SIGN_IN } from '../constants/routes'
 
 import { FiAtSign } from 'react-icons/fi'
@@ -12,65 +17,61 @@ import { FcGoogle } from 'react-icons/fc'
 import { motion } from 'framer-motion'
 import {
 	addDoc,
-	setDoc,
-	deleteDoc,
-	doc,
 	collection,
-	serverTimestamp,
-	onSnapshot,
-	query,
-	orderBy,
 } from '@firebase/firestore'
-import {firestore} from '../firebase.config'
+import { firestore } from '../firebase.config'
 
 const SignUpPage = () => {
-  const provider = new GoogleAuthProvider() 
+	const provider = new GoogleAuthProvider()
 
 	const [firstName, setFirstName] = useState('')
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [error, setError] = useState('')
+	const navigate = useNavigate()
 
 	const isInvalid = firstName === '' || password === '' || email === ''
 
-	
-
-	const handleSignUp = (e) => {
+	const handleSignUp = async (e) => {
 		e.preventDefault()
-		
 
-    createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
-      updateProfile(userCredential.user, {
-        // set the user's display name to the first name
-        displayName: firstName,
-      })
-		// console.log(userCredential.user.uid)
-		// const uid = userCredential.user.uid
+		await createUserWithEmailAndPassword(auth, email, password)
+			.then((userCredential) => {
+				updateProfile(userCredential.user, {
+					// set the user's display name to the first name
+					displayName: firstName,
+				})
+				console.log(userCredential.user.uid)
+				
 
-		// const createUser = () => {
-		// 	setDoc(doc(firestore, 'users', userCredential, uid), {
-		// 		username: userCredential.user.displayName,
-		// 		email: userCredential.user.email,
-		// 		userId: userCredential.user.uid
-		// 	})
-		// }
-		// createUser()
-		
-    }).catch((error) => {
-      setFirstName('')
-      setEmail('')
-      setPassword('')
-      setError(error.message)
-    })
+				addDoc(collection(firestore, 'users', "email", userCredential.user.email), {
+					username: userCredential.user.displayName,
+					photo: userCredential.user.photoURL,
+					email: userCredential.user.email,
+				}).then()
 
-	
-  }
-  
-  const signInGoogle = async () => {
-    // console.log("Signed In with google")
-    const response = await signInWithPopup(auth, provider)
-    console.log(response)
-  }
+				navigate('/signin')
+			})
+			.catch((error) => {
+				setFirstName('')
+				setEmail('')
+				setPassword('')
+				setError(error.message)
+			})
+
+	}
+
+	const signInGoogle = async () => {
+		// console.log("Signed In with google")
+		const response = await signInWithPopup(auth, provider)
+
+		addDoc(collection(firestore, 'users', response.user.email ), {
+			username: response.user.displayName,
+			photo: response.user.photoURL,
+			email: response.user.email,
+		})
+		// console.log(response)
+	}
 
 	return (
 		<div className='w-screen h-screen flex items-center justify-center text-black bg-gradient-to-br from-red-300 to-red-50'>
@@ -89,7 +90,9 @@ const SignUpPage = () => {
 					className='w-full flex flex-col gap-4'
 				>
 					{error && (
-						<div className='text-sm text-yellow-600 w-full max-w-sm'>{error}</div>
+						<div className='text-sm text-yellow-600 w-full max-w-sm'>
+							{error}
+						</div>
 					)}
 					<div className='flex items-center'>
 						<BiUser className='absolute z-10 ml-4 text-gray-500 text-lg' />
@@ -146,8 +149,8 @@ const SignUpPage = () => {
 					<p className='text-sm text-gray-600'>or continue with</p>
 					<motion.div
 						whileTap={{ scale: 0.8 }}
-            className='bg-white hover:shadow-xl p-2 rounded-full border-2 border-gray-100 cursor-pointer'
-            onClick={signInGoogle}
+						className='bg-white hover:shadow-xl p-2 rounded-full border-2 border-gray-100 cursor-pointer'
+						onClick={signInGoogle}
 					>
 						<FcGoogle className=' text-3xl ' />
 					</motion.div>

@@ -5,9 +5,11 @@ export { default as Loader} from './Loader/Loader'
 export { default as Product} from './Product/Product'
 export { default as FilterButtons} from './FilterButtons/FilterButtons'
 export { default as Cart} from './Cart/Cart'
+export { default as Order} from './Order/Order'
 export { default as CartContainer} from './CartContainer/CartContainer'
 export { default as LandingSubHeading } from './LandingSubHeading/LandingSubHeading'
-
+export { default as ProtectedRoute} from './ProtectedRoute'
+export { default as ProtectedAdmin} from './ProtectedAdmin'
 
 
 // Home Page
@@ -36,4 +38,6 @@ export { default as ContactQuote } from './ContactQuote/ContactQuote'
 // Dashboard Page
 export { default as DashboardAdd} from './DashboardAdd/DashboardAdd'
 export { default as PendingOrders} from './PendingOrders/PendingOrders'
+export { default as OngoingOrders} from './OngoingOrders/OngoingOrders'
+export { default as DeclinedOrders} from './DeclinedOrders/DeclinedOrders'
 

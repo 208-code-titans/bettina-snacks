@@ -8,6 +8,7 @@ import {
 	MENU,
 	CONTACT,
 	DASHBOARD,
+	INVOICES,
 } from '../../constants/routes'
 import { person, personLg } from '../images'
 import { motion } from 'framer-motion'
@@ -17,6 +18,7 @@ import { useStateValue } from '../../context/StateProvider'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { MdLogin, MdLogout, MdOutlineDashboardCustomize } from 'react-icons/md'
 import { BiUserPlus, BiFoodMenu, BiUser, BiPhoneCall } from 'react-icons/bi'
+import { BsCashCoin } from 'react-icons/bs'
 import { AiOutlineHome } from 'react-icons/ai'
 
 const Header = () => {
@@ -155,7 +157,16 @@ const Header = () => {
 									>
 										<MdLogout className='text-xl text-red-500' />
 										Logout
-									</p>
+								</p>
+								<Link
+											to={INVOICES}
+											onClick={() => setIsMenu(false)}
+										>
+											<p className='border-b cursor-pointer hover:bg-gray-100 px-4 py-2 duration-100 transition-all ease-in-out flex items-center gap-3 text-base'>
+												<BsCashCoin className='text-xl text-red-500' />
+												Invoices
+											</p>
+										</Link>
 								</motion.div>
 							) : (
 								<motion.div
@@ -289,6 +300,15 @@ const Header = () => {
 									<li className='text-base  hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer px-4 py-2 hover:bg-gray-100 border-b gap-3 flex items-center'>
 										<BiPhoneCall className='text-xl text-red-500' />
 										Contact
+									</li>
+								</Link>
+								<Link
+									to={INVOICES}
+									onClick={() => setIsMenu(false)}
+								>
+									<li className='text-base  hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer px-4 py-2 hover:bg-gray-100 border-b gap-3 flex items-center'>
+										<BsCashCoin className='text-xl text-red-500' />
+										Invoices
 									</li>
 								</Link>
 							</motion.ul>

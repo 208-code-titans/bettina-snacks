@@ -1,7 +1,11 @@
-import React, { useState} from 'react'
+import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { signInWithPopup, signInWithEmailAndPassword, GoogleAuthProvider } from "firebase/auth";
-import { auth } from '../firebase.config';
+import {
+	signInWithPopup,
+	signInWithEmailAndPassword,
+	GoogleAuthProvider,
+} from 'firebase/auth'
+import { auth } from '../firebase.config'
 import { SIGN_UP } from '../constants/routes'
 
 import { FiAtSign } from 'react-icons/fi'
@@ -9,64 +13,64 @@ import { RiLockPasswordLine } from 'react-icons/ri'
 import { FcGoogle } from 'react-icons/fc'
 
 import { motion } from 'framer-motion'
-import { actionType } from '../context/reducer';
+import { actionType } from '../context/reducer'
 import { useStateValue } from '../context/StateProvider'
 
-
 const SignInPage = () => {
-  const provider = new GoogleAuthProvider() 
+	const provider = new GoogleAuthProvider()
 
 	const [{ user }, dispatch] = useStateValue()
-  const navigate = useNavigate();
+	const navigate = useNavigate()
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [error, setError] = useState('')
 
 	const isInvalid = password === '' || email === ''
 
-  const signInEmail = async () => {
-    const {user: {refreshToken, providerData}} = await  signInWithEmailAndPassword(auth, email, password).catch((error) => {
-      setEmail('')
-      setPassword('')
-      setError(error.message)
-    })
-			// After user logs in, dispatch the information to the data layer (useStateValue and reducer)
-    dispatch({
-      type: actionType.SET_USER,
+	const signInEmail = async () => {
+		const {
+			user: { refreshToken, providerData },
+		} = await signInWithEmailAndPassword(auth, email, password).catch(
+			(error) => {
+				setEmail('')
+				setPassword('')
+				setError(error.message)
+			}
+		)
+		// After user logs in, dispatch the information to the data layer (useStateValue and reducer)
+		dispatch({
+			type: actionType.SET_USER,
 			user: providerData[0], // The 0 index of the providerData contains user information
+		})
+		// Store login information in local storage
+		localStorage.setItem('user', JSON.stringify(providerData[0]))
+		// Navigate user to home page after log in
+		navigate('/')
+	}
 
-    })
-    // Store login information in local storage
-			localStorage.setItem('user', JSON.stringify(providerData[0]))
-      // Navigate user to home page after log in
-      navigate("/");
-  }
-
-  const signInGoogle = async () => {
-    const {user: {refreshToken, providerData}} = await signInWithPopup(auth, provider)
-			// After user logs in, dispatch the information to the data layer (useStateValue and reducer)
-    dispatch({
-      type: actionType.SET_USER,
+	const signInGoogle = async () => {
+		const {
+			user: { refreshToken, providerData },
+		} = await signInWithPopup(auth, provider)
+		// After user logs in, dispatch the information to the data layer (useStateValue and reducer)
+		dispatch({
+			type: actionType.SET_USER,
 			user: providerData[0], // The 0 index of the providerData contains user information
-      
-    })
-    // Store login information in local storage
-			localStorage.setItem('user', JSON.stringify(providerData[0]))
-      // Navigate user to home page after log in
-      navigate("/");
-  }
+		})
+		// Store login information in local storage
+		localStorage.setItem('user', JSON.stringify(providerData[0]))
+		// Navigate user to home page after log in
+		navigate('/')
+	}
 
-  const handleSignIn = (e) => {
-    e.preventDefault()
+	const handleSignIn = (e) => {
+		e.preventDefault()
 
-    signInEmail()
+		signInEmail()
+	}
 
-  }
-
-
-
-  return (
-    <div className='w-screen h-screen flex items-center justify-center text-black bg-gradient-to-br from-red-300 to-red-50'>
+	return (
+		<div className='w-screen h-screen flex items-center justify-center text-black bg-gradient-to-br from-red-300 to-red-50'>
 			<div className='shadow-xl min-w-[350px] border min-h-[550px] bg-white rounded-2xl flex flex-col items-center justify-center p-4 gap-8'>
 				<div>
 					<h1 className='text-4xl text-red-500 text-center'>
@@ -103,10 +107,12 @@ const SignInPage = () => {
 							autoComplete='off'
 							onChange={({ target }) => setPassword(target.value)}
 						/>
-          </div>
-          <div>
-            <p className='text-gray-500 text-sm w-full text-right'>Forgot Password?</p>
-          </div>
+					</div>
+					<div>
+						<p className='text-gray-500 text-sm w-full text-right'>
+							Forgot Password?
+						</p>
+					</div>
 
 					<motion.button
 						whileTap={{ scale: 0.8 }}
@@ -131,15 +137,15 @@ const SignInPage = () => {
 					<p className='text-sm text-gray-600'>or continue with</p>
 					<motion.div
 						whileTap={{ scale: 0.8 }}
-            className='bg-white hover:shadow-xl p-2 rounded-full border-2 border-gray-100 cursor-pointer'
-            onClick={signInGoogle}
+						className='bg-white hover:shadow-xl p-2 rounded-full border-2 border-gray-100 cursor-pointer'
+						onClick={signInGoogle}
 					>
 						<FcGoogle className=' text-3xl ' />
 					</motion.div>
 				</div>
 			</div>
 		</div>
-  )
+	)
 }
 
 export default SignInPage

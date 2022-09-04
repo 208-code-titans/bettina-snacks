@@ -7,79 +7,105 @@ import { BsCart3 } from 'react-icons/bs'
 import { motion } from 'framer-motion'
 import { Cart } from '../components'
 import { useState, useEffect } from 'react'
-import PaystackPop from '@paystack/inline-js'
+import { usePaystackPayment } from 'react-paystack'
 import {
 	addDoc,
+	setDoc,
+	doc,
+	getDoc,
+	getDocs,
 	collection,
+	onSnapshot,
+	serverTimestamp,
 } from '@firebase/firestore'
 import { firestore } from '../../firebase.config'
+// import axios from 'axios'
 
 const CartContainer = () => {
 	const [{ user, cartShow, cartItems }, dispatch] = useStateValue()
 	const [flag, setFlag] = useState(1)
-    const [tot, setTot] = useState(0)
-    const [hasPaid, setHasPaid] = useState(false)
+	const [tot, setTot] = useState(0)
+	const [hasPaid, setHasPaid] = useState(false)
+	const [id, setId] = useState('')
+	const dbRef = collection(firestore, 'users')
+	// console.log(dbRef)
+	
+	onSnapshot(dbRef, (snapshot) => {
+		snapshot.docs.map((snap) => {
+			setId(snap.id)
+		})
+	})
 
 	const showCart = () => {
 		dispatch({
 			type: actionType.SET_CART_SHOW,
 			cartShow: !cartShow,
 		})
-    }
+	}
 
-    useEffect(() => {
-        let totalPrice = cartItems.reduce(function (accumulator, item) {
-          return accumulator + item.qty * item.price;
-        }, 0);
-        setTot(totalPrice);
-        // console.log(tot);
-      }, [tot, flag]);
-    
-    const clearCart = () => {
-        dispatch({
-          type: actionType.SET_CART_ITEMS,
-          cartItems: [],
-        });
-    
-        localStorage.setItem("cartItems", JSON.stringify([]));
-    };
+	useEffect(() => {
+		let totalPrice = cartItems.reduce(function (accumulator, item) {
+			return accumulator + item.qty * item.price
+		}, 0)
+		setTot(totalPrice)
+		// console.log(tot);
+	}, [tot, flag])
 
-    const createOrder = () => {
-        try {
-            if (hasPaid) {
-                console.log("Creating order ....")
-            } 
-        } catch (error) {
-            console.log(error)
-        }
-    }
+	const clearCart = () => {
+		dispatch({
+			type: actionType.SET_CART_ITEMS,
+			cartItems: [],
+		})
 
-    
-    const checkout = () => {
-        const paystack = new PaystackPop()
+		localStorage.setItem('cartItems', JSON.stringify([]))
+	}
 
-        paystack.newTransaction({
-            key: 'pk_test_1d5b09c72c5f58de4539928514d88cf31b24debd',
-            amount: tot * 100,
-            email: user.email,
-            firstname: user.displayName,
-            
-        })
+	const createOrder = async () => {
+		try {
+			await addDoc(collection(firestore, 'users', 'email', user.email), {
+				orderDetails: cartItems,
+				completionStatus: 'pending',
+				price: tot,
+				timestamp: serverTimestamp(),
+			})
+			await addDoc(collection(firestore, 'allOrders'), {
+				username: user.displayName,
+				userImage: user.photoURL,
+				userEmail: user.email,
+				orderDetails: cartItems,
+				completionStatus: 'pending',
+				price: tot,
+				timestamp: serverTimestamp(),
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	}
 
-        setHasPaid(true)
-        createOrder()
-        
+	const paystackConfig = {
+		reference: new Date().getTime().toString(),
+		email: user.email,
+		amount: tot * 100,
+		publicKey: 'pk_test_1d5b09c72c5f58de4539928514d88cf31b24debd',
+		currency: 'GHS',
+	}
 
-        console.log(user.uid)
-        console.log(user.displayName)
-        console.log(user.email)
-        console.log(tot * 100)
-        console.log(cartItems)
+	const onSuccess = () => {
+		console.log('Payment Succeeded')
 
-        clearCart()
-        showCart()
-        console.log("you have checked out")
-    }
+		createOrder()
+
+		clearCart()
+		showCart()
+		console.log('you have checked out')
+	}
+
+	const onClose = () => {
+		console.log('Payment Failed')
+		setHasPaid(false)
+	}
+
+	const initializePay = usePaystackPayment(paystackConfig)
 
 	return (
 		<motion.div
@@ -98,8 +124,8 @@ const CartContainer = () => {
 				<div>
 					<motion.p
 						whileTap={{ scale: 0.8 }}
-                        className='flex items-center gap-2 p-1 px-2 bg-red-100  rounded-md hover:shadow-md duration-100 ease-in-out transition-all cursor-pointer test-base'
-                        onClick={clearCart}
+						className='flex items-center gap-2 p-1 px-2 bg-red-100  rounded-md hover:shadow-md duration-100 ease-in-out transition-all cursor-pointer test-base'
+						onClick={clearCart}
 					>
 						Clear <MdRefresh />
 					</motion.p>
@@ -112,7 +138,12 @@ const CartContainer = () => {
 						{cartItems &&
 							cartItems.length > 0 &&
 							cartItems.map((item) => (
-								<Cart item={item} key={item.id} setFlag={setFlag} flag={flag} />
+								<Cart
+									item={item}
+									key={item.id}
+									setFlag={setFlag}
+									flag={flag}
+								/>
 							))}
 					</div>
 
@@ -123,7 +154,10 @@ const CartContainer = () => {
 								<p className='text-gray-500 text-sm mr-2 font-semibold'>
 									Subtotal:{' '}
 								</p>
-                                <p className='text-base font-semibold'> {tot}</p>
+								<p className='text-base font-semibold'>
+									{' '}
+									{tot}
+								</p>
 							</div>
 							<div className='flex items-center'>
 								<p className='text-gray-500 text-sm mr-2 font-semibold'>
@@ -139,14 +173,17 @@ const CartContainer = () => {
 								</p>
 								<p className='text-2xl font-semibold'>
 									{' '}
-									<span className='text-sm'>GHC</span> {tot + 1}
+									<span className='text-sm'>GHC</span>{' '}
+									{tot + 1}
 								</p>
 							</div>
 							<motion.button
 								whileTap={{ scale: 0.8 }}
 								type='button'
-                                className='bg-gradient-to-br from-red-400 to-red-500 hover:from-red-500 hover:to-red-500 transition-colors duration-700 ease-linear  px-7 py-2 rounded-full text-white '
-                                onClick={checkout}
+								className='bg-gradient-to-br from-red-400 to-red-500 hover:from-red-500 hover:to-red-500 transition-colors duration-700 ease-linear  px-7 py-2 rounded-full text-white '
+								onClick={() => {
+									initializePay(onSuccess, onClose)
+								}}
 							>
 								Checkout
 							</motion.button>

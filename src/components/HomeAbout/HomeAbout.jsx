@@ -1,10 +1,17 @@
 import React from 'react'
 import { Button, LandingSubHeading } from '../components'
 import { homeAbout } from '../images'
+import Aos from 'aos';
+import 'aos/dist/aos.css';
+import { useEffect } from 'react';
 
 const HomeAbout = () => {
+	useEffect(() => { 
+		Aos.init({duration:2000});
+	Aos.refresh();
+		},[]);
 	return (
-		<div className='bg-gradient-to-b from-white to-overlay pt-12 '>
+		<div data-aos='fade-left' className='bg-gradient-to-b from-white to-overlay pt-12 '>
 			<div className='hidden md:flex w-full h-full items-center gap-12'>
 				<div className='w-[50%]'>
 					<img src={homeAbout} alt='' />
