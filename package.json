@@ -1,5 +1,6 @@
 {
   "name": "bettina-snacks",
+  "homepage": "https://bettinasnacks.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

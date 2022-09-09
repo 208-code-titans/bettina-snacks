@@ -65,7 +65,7 @@ const CartContainer = () => {
 		reference: new Date().getTime().toString(),
 		email: user.email,
 		amount: tot * 100,
-		publicKey: 'pk_test_1d5b09c72c5f58de4539928514d88cf31b24debd',
+		publicKey: 'pk_live_39f851b039074b38a663197b479a9b8170cfd3d2',
 		currency: 'GHS',
 	}
 
