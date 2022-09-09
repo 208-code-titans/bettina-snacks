@@ -83,8 +83,8 @@ export const contactData = [
     id: 2,
     icon: <BsWhatsapp className='contactIcon' />,
     title: "WhatsApp",
-    handle: "050 229 7337",
-    link: "https://api.whatsapp.com/send?phone=+233502297337"
+    handle: "024 474 4474",
+    link: "https://api.whatsapp.com/send?phone=+233244744474"
   },
   {
     id: 3,

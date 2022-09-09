@@ -12,8 +12,8 @@ const AboutAbout = () => {
 		},[]);
   
   return (
-    <div data-aos='fade-right' className='text-center mb-8 border-none h-[80vh] flex items-center justify-center text-white bg-cover' style={{ backgroundImage: `url(${bg})` }}>
-      <div className=' mx-auto flex flex-col gap-9'>
+    <div data-aos='fade-right' className='text-center  border-none h-[80vh] flex items-center justify-center text-white bg-cover' style={{ backgroundImage: `url(${bg})` }}>
+      <div className=' mx-auto flex flex-col gap-9 px-10'>
         <h1 className='text-7xl uppercase'>ABO<span className='text-red-600'>UT</span></h1>
 
         <p className='max-w-4xl text-center mx-auto '>
